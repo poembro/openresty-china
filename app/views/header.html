@@ -43,7 +43,9 @@
                 {% end %}
             </ul>
 
-            
+            {%
+                if locals and locals.login and locals.login == true then
+            %}
             <ul class="nav navbar-nav navbar-right">
                 <!-- <li class="nav-search hidden-xs">
                     <form class="navbar-form form-search active" action="/search" method="GET">
@@ -59,7 +61,7 @@
                     </a>
                 </li>
             </ul>
-            
+            {% end %}
         </div>
     </nav>
 </div>

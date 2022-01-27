@@ -20,7 +20,7 @@ local function _multipart_formdata(config)
 	end
 	form:set_timeout(config.recieve_timeout)
 	
-
+        local filetype
 	local unique_name = ngx.now()
 	local success, msg = false, ""
 	local file, origin_filename, filename, path, extname, err
@@ -36,7 +36,7 @@ local function _multipart_formdata(config)
 
 		if typ == "header" then
 			if res[1] == "Content-Disposition" then
-				key = match(res[2], "name=\"(.-)\"")
+				--local key = match(res[2], "name=\"(.-)\"")
 				origin_filename = match(res[2], "filename=\"(.-)\"")
 			elseif res[1] == "Content-Type" then
 				filetype = res[2]
@@ -57,7 +57,7 @@ local function _multipart_formdata(config)
 				filename = unique_name .. "." .. extname
 				path = config.dir.. "/" .. filename
 			
-				
+			         ngx.log(ngx.ERR, "====>>>" ,path)	
 				file, err = io.open(path, "w+")
 
 				if err then

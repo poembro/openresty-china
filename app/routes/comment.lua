@@ -14,14 +14,14 @@ local comment_router = lor:Router()
 comment_router:get("/:comment_id/delete", function(req, res, next)
     local comment_id = req.params.comment_id
     local userid = res.locals.userid
-
+    local is_admin = res.locals.is_admin
     if not userid then
         return res:json({
             success = false,
             msg = "删除评论之前请先登录."
         })
     end
-
+ 
     if not comment_id then
         return res:json({
             success = false,
@@ -30,7 +30,12 @@ comment_router:get("/:comment_id/delete", function(req, res, next)
     end
 
     local comment = comment_model:query(comment_id)
-    local result = comment_model:delete(userid, comment_id)
+    local result 
+    if is_admin == 1 then
+        result = comment_model:delete2(userid, comment_id)
+    else
+        result = comment_model:delete(userid, comment_id)
+    end
 
     if result then
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OpenResty China 社区</title>
+  <title>社区</title>
   {(meta.html)}
 </head>
 <body data-controller-name="topics">
@@ -41,15 +41,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">新手必读</div>
                 <div class="panel-body">
-                    <p>为提高社区质量，防止新注册用户一来就发帖提问问题，新用户需要达到下面条件才可发帖：</p>
-                    <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px;">
-                        <li>注册时间超过3天</li>
-                        {% if locals and locals.create_time then%}
-                        <li>您注册于{{locals.create_time}}</li>
-                        {% end %}
+                    <p>为提高社区质量,保持良好氛围,本站有自己的明确规则：</p>
+                    <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px;"> 
+                        <li>1.不讨论任何有关政治的话题</li> 
+                        <li>2.这里感激和崇尚美的事物</li>
+                        <li>3.这里尊重原创</li>
+                        <li>4.禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴”</li> 
+                        <li>5.当你在网上发帖时,请考虑到你所做的一切,会受到你所在地区法律的管辖</li> 
                     </ul>
-                    <p>请在新人阶段多浏览，看看其他老用户是如何在社区里面分享与解决问题的。</p>
-                    </p>
+                    <p>请在新人阶段多浏览,看看其他老用户是如何在社区里面分享与解决问题的。</p>
+                    <p>{% if locals and locals.create_time then%} <strong>您注册于{{locals.create_time}}</strong> {% end %} </p>
                 </div>
             </div>
             {% end %}
@@ -58,33 +59,33 @@
                 <div class="panel-heading">友情社区</div>
                 <ul class="list-group" style="text-align:center">
                     <li class="list-group-item">
-                        <a href="https://ruby-china.org" target="_blank" rel="nofollow">
+                        <a href="#" target="_blank" rel="nofollow">
                             <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://cnodejs.org" rel="nofollow" title="CNode 社区" target="_blank">
+                        <a href="#" rel="nofollow" title="CNode 社区" target="_blank">
                             <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://golangtc.com/" rel="nofollow" title="Golang 中国" target="_blank">
+                        <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
                             <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://segmentfault.com" target="_blank" rel="nofollow">
+                        <a href="#" target="_blank" rel="nofollow">
                             <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading">推荐 OpenResty 资源</div>
+                <div class="panel-heading">推荐资源</div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/" target="_blank" rel="nofollow">OpenResty最佳实践电子书</a>
+                    <li class="list-group-item"><a href="https://tophub.today/" target="_blank" rel="nofollow">各大平台的今日热搜榜 </a>
                     </li>
-                    <li class="list-group-item"><a href="https://github.com/sumory/lor">本站框架 Lor Framework</a>
+                    <li class="list-group-item"><a href="https://www.chongbuluo.com/thread-7961-1-1.html" target="_blank"> 解锁一大波涨姿势的小众网站 </a>
                     </li>
                 </ul>
             </div>

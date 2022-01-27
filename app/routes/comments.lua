@@ -9,6 +9,7 @@ local topic_comment_page_size = page_config.topic_comment_page_size
 
 
 comments_router:get("/all", function(req, res, next)
+    local is_admin = res.locals.is_admin
     local userid = res.locals.userid
     local page_no = req.query.page_no
     local topic_id = req.query.topic_id
@@ -27,7 +28,8 @@ comments_router:get("/all", function(req, res, next)
             currentPage = page_no,
             comments = comments,
             base = (page_no - 1) * page_size,
-            current_user_id = tonumber(userid) or 0
+            current_user_id = tonumber(userid) or 0,
+            is_admin = is_admin
         }
     })
 end)

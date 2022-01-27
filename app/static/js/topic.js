@@ -294,7 +294,7 @@
         },
 
         initCollectEvent:function(){
-			$("#collect-btn").click(function(){
+			$("#collect-btn,#collect-btn2").click(function(){
         		var op = $(this).attr("data-op");
         		var topic_id = $(this).attr('data-id');
         		var _self = $(this);
@@ -346,7 +346,7 @@
         },
 
         initLikeEvent:function(){
-			$("#like-btn").click(function(){
+			$("#like-btn, #like-btn2").click(function(){
         		var op = $(this).attr("data-op");
         		var topic_id = $(this).attr('data-id');
         		var _self = $(this);

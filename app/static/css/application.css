@@ -140,8 +140,9 @@
 }
 @media (max-width: 767px) {
     .header .navbar-header {
-        text-align: center;
-        padding: 2px 0;
+        /*text-align: center;
+        padding: 2px 0;*/
+        display: none;
     }
     .header .navbar-header .navbar-brand {
         font-size: 12px;

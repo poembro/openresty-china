@@ -5,8 +5,8 @@ local db = DB:new()
 local topic_model = {}
 
 function topic_model:delete(user_id, topic_id)
-    local res, err = db:query("delete from topic where id=? and user_id=?",
-            {tonumber(topic_id), tonumber(user_id)})
+    local res, err = db:query("delete from topic where id=? ",
+            {tonumber(topic_id)})
     if res and not err then
     	return true
     else
@@ -26,11 +26,23 @@ function topic_model:update(topic_id, title, content, user_id, category_id)
             {title, content,  tonumber(category_id), now, tonumber(topic_id), tonumber(user_id)})
 end
 
+function topic_model:update2(topic_id, title, content, user_id, category_id)
+	local now = utils.now()
+    return db:query("update topic set title=?, content=?, category_id=?, update_time=? where id=?",
+            {title, content,  tonumber(category_id), now, tonumber(topic_id)})
+end
+
 function topic_model:get_my_topic(user_id, id)
     return db:query("select t.*, u.avatar as avatar, c.name as category_name from topic t "..
     	" left join user u on t.user_id=u.id " .. 
     	" left join category c on t.category_id=c.id " ..
     	" where t.id=? and user_id=?", {tonumber(id),tonumber(user_id)})
+end
+function topic_model:get_my_topic2(id)
+    return db:query("select t.*, u.avatar as avatar, c.name as category_name from topic t "..
+    	" left join user u on t.user_id=u.id " .. 
+    	" left join category c on t.category_id=c.id " ..
+    	" where t.id=?", {tonumber(id)})
 end
 
 

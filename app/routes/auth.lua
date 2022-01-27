@@ -118,7 +118,7 @@ auth_router:post("/login", function(req, res, next)
     end
 
     if isExist == true then 
-        local signVal = jwt:encode(userid, username, user.create_time)
+        local signVal = jwt:encode(userid, username,user.is_admin, user.create_time)
         local ok, err = req.cookie.set({
             key = "_TOKEN",
             value = signVal,

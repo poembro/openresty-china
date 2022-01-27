@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OpenResty China 社区 &raquo; 编辑文章</title>
+  <title>本地社区 编辑文章</title>
   {(meta.html)}
   <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload.css"/>
     <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload-ui.css"/>
@@ -120,10 +120,10 @@
                 return;
             }
 
-            if(title.length>250||title.length<8 || content.length>5000 || content.length<20){
-                APP.Common.showTipDialog("提示", "标题长度须大于8小于250，内容长度须大于20小于5000");
+            if(title.length>250||title.length<4 || content.length>50000 || content.length<2){
+                APP.Common.showTipDialog("提示", "标题长度须大于4小于250，内容长度须大于2小于50000");
                 return;
-            }
+            } 
 
             $.ajax({
                 url : '/topic/edit',

@@ -11,6 +11,7 @@ topic_router:get("/:topic_id/delete", function(req, res, next)
     local topic_id = req.params.topic_id
     local userid = res.locals.userid
     local username = res.locals.username
+    local is_admin = res.locals.is_admin
 
     if not userid then
         return res:json({
@@ -26,7 +27,7 @@ topic_router:get("/:topic_id/delete", function(req, res, next)
         })
     end
 
-    if username ~= "admin" then
+    if is_admin ~= 1 then
         return res:json({
             success = false,
             msg = "联系管理员删除."
@@ -89,7 +90,8 @@ topic_router:get("/:topic_id/query", function(req, res, next)
     else
         local topic = result[1]
         local user_id = res.locals.userid
-        local is_self = user_id == topic.user_id or false
+        local is_admin = res.locals.is_admin
+        local is_self = is_admin == 1 or user_id == topic.user_id or false
         res:json({
             success = true,
             data = {
@@ -108,9 +110,7 @@ end)
 topic_router:get("/new", function(req, res, next)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
     if diff_days<3 then
-        return res:render("error", {
-            errMsg = "注册时间不到3天，不允许发布文章"
-        })
+        --return res:render("error", {errMsg = "注册时间不到3天，不允许发布文章"})
     end
     res:render("topic/new")
 end)
@@ -119,10 +119,7 @@ end)
 topic_router:post("/new", function(req, res, next)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
     if diff_days<3 then
-        return res:json({
-            success = false,
-            msg = "注册时间不到3天，不允许发布文章"
-        })
+        --return res:json({  success = false, msg = "注册时间不到3天，不允许发布文章" })
     end
     
     local category_id = req.body.category_id
@@ -173,6 +170,7 @@ topic_router:get("/:topic_id/edit", function(req, res, next)
         })
     end
 
+    local is_admin = res.locals.is_admin
     local current_userid = res.locals.userid
     if not current_userid or current_userid == 0 then
         res:render("error", {
@@ -181,7 +179,13 @@ topic_router:get("/:topic_id/edit", function(req, res, next)
     end
 
     -- topic_id must be number
-    local result, err = topic_model:get_my_topic(current_userid, topic_id)
+    local result, err 
+    if is_admin == 1 then
+        result, err = topic_model:get_my_topic2(topic_id)
+    else 
+        result, err = topic_model:get_my_topic(current_userid, topic_id)
+    end
+
     if not result or err or type(result) ~= "table" or #result ~= 1 then
         res:render("error", {
             errMsg = "您要编辑的文章不存在或者您没有权限编辑."
@@ -200,7 +204,7 @@ topic_router:post("/edit", function(req, res, next)
     local topic_id = req.body.topic_id
  
     local user_id = res.locals.userid
-
+    local is_admin = res.locals.is_admin
     if not topic_id then
         res:json({
             success = false,
@@ -223,7 +227,13 @@ topic_router:post("/edit", function(req, res, next)
         return
     end
 
-    local result, err = topic_model:update(topic_id, title, content, user_id, category_id)
+    local result, err 
+    if is_admin == 1 then
+        result, err = topic_model:update2(topic_id, title, content, user_id, category_id)
+    else
+        result, err = topic_model:update(topic_id, title, content, user_id, category_id)
+    end
+
     if not result or err then
         res:json({
             success = false,

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OpenResty China社区 &raquo;</title>
+  <title>本地社区 &raquo;</title>
   {(meta.html)}
     <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload.css"/>
     <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload-ui.css"/>
@@ -133,7 +133,7 @@
         {@/if}
 
         {@if !meta.is_like }
-            <a title="赞" id="like-btn" data-id="${topic.id}" data-op="like" class="likeable " href="javascript:void(0);">
+            <a title="赞" id="like-btn" data-id="${topic.id}" data-op="like" class="likeable" href="javascript:void(0);">
                 <i class="fa fa-thumbs-up"></i>
                 <span class="like-num-text">${topic.like_num}</span> 个赞
             </a>
@@ -142,13 +142,13 @@
     <div class="group">
         <div class="btn-group" role="group">
             {@if meta.is_collect }
-                <a title="收藏" id="collect-btn" class="bookmark active btn btn-default" data-op="cancel_collect" data-id="${topic.id}" href="javascript:void(0);">
+                <a title="收藏" id="collect-btn" class="bookmark active btn" data-op="cancel_collect" data-id="${topic.id}" href="javascript:void(0);">
                     <i class="fa fa-bookmark"></i> 收藏
                 </a>
             {@/if}
 
             {@if !meta.is_collect }
-                <a title="收藏" id="collect-btn" class="bookmark  btn btn-default" data-op="collect" data-id="${topic.id}" href="javascript:void(0);">
+                <a title="收藏" id="collect-btn" class="bookmark btn btn-default" data-op="collect" data-id="${topic.id}" href="javascript:void(0);">
                     <i class="fa fa-bookmark"></i> 收藏
                 </a>
             {@/if}
@@ -216,16 +216,35 @@
     </div>
 
     <div class="panel-footer clearfix">
-        <div class="opts" style="font-size: 12px;">
-            <span title="赞" class="likeable " href="javascript:void(0);">
-                <i class="fa fa-thumbs-up"></i>
-                <span class="like-num-text">${topic.like_num}</span> 个赞
-            </span>
+        <div class="opts" style="font-size: 12px;"> 
+            {@if meta.is_like }
+                <a title="赞" id="like-btn2" data-id="${topic.id}" data-op="cancel_like" class="likeable active" href="javascript:void(0);">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span class="like-num-text">${topic.like_num}</span> 个赞
+                </a>
+            {@/if}
+    
+            {@if !meta.is_like }
+                <a title="赞" id="like-btn2" data-id="${topic.id}" data-op="like" class="likeable" href="javascript:void(0);">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span class="like-num-text">${topic.like_num}</span> 个赞
+                </a>
+            {@/if}
+           
             &nbsp;
-            <span title="收藏" class="bookmark " href="javascript:void(0);">
-                <i class="fa fa-bookmark"></i>
-                <span id="collect-num-text">${topic.collect_num}</span> 收藏
-            </span>
+            {@if meta.is_collect }
+                <a title="收藏" id="collect-btn2" class="bookmark active" data-op="cancel_collect" data-id="${topic.id}" href="javascript:void(0);">
+                    <i class="fa fa-bookmark"></i> 
+                    <span id="collect-num-text">${topic.collect_num}</span> 收藏
+                </a>
+            {@/if}
+
+            {@if !meta.is_collect }
+                <a title="收藏" id="collect-btn2" class="bookmark" data-op="collect" data-id="${topic.id}" href="javascript:void(0);">
+                    <i class="fa fa-bookmark"></i>
+                    <span id="collect-num-text">${topic.collect_num}</span> 收藏
+                </a>
+            {@/if}
         </div>
     </div>
 </script>
@@ -256,7 +275,7 @@
                     </abbr>
                     &nbsp;
 
-                    {@if current_user_id==c.user_id }
+                    {@if current_user_id==c.user_id || is_admin == 1}
                         <a href="javascript:void(0)" class="delete-comment" data-id="${c.id}" style="color:#FF6969"><i title="删除此评论" class="fa fa-trash"></i></a>
                     {@/if}
                 </span>

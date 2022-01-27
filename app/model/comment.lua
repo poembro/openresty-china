@@ -12,6 +12,15 @@ function comment_model:delete(user_id, comment_id)
     	return false
     end
 end
+function comment_model:delete2(user_id, comment_id)
+    local res, err = db:query("delete from comment where id=? ",
+            {tonumber(comment_id)})
+    if res and not err then
+    	return true
+    else
+    	return false
+    end
+end
 
 function comment_model:new(topic_id,  user_id, content)
     return db:query("insert into comment(topic_id,user_id, content) values(?,?,?)",

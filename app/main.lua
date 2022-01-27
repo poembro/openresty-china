@@ -52,9 +52,12 @@ app:use("/category", category_router())
 app:use("/topic", topic_router())
 app:use("/topics", topics_router())
 app:use("/comment", comment_router())
-app:use("/comments", comments_router()) 
+app:use("/comments", comments_router())
+
 app:use("/notification", notification_router())
-app:use("/upload", upload_router()) 
+app:use("/upload", upload_router())
+
+
 app:get("/", common_router.index)
 app:get("/index", common_router.index)
 app:get("/share", common_router.share)

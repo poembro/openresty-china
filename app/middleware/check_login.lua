@@ -55,6 +55,7 @@ local function check_login(whitelist)
 			res.locals.login = true
 			res.locals.username = user.username
 			res.locals.userid = user.userid
+                        res.locals.is_admin = user.is_admin
 			res.locals.create_time = user.create_time 
 		end
 

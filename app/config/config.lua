@@ -51,7 +51,7 @@ return {
 		connect_config = {
 			host = "127.0.0.1",
 	        port = 3306,
-	        database = "openresty-china",
+	        database = "openresty_china",
 	        user = "root",
 	        password = "123456",
 	        max_packet_size = 1024 * 1024
@@ -65,7 +65,7 @@ return {
 	
 	-- 上传文件配置，如上传的头像、文章中的图片等
 	upload_config = {
-		dir = "/data/web/openresty-china/app/static", -- 文件目录，修改此值时须同时修改nginx配置文件中的$static_files_path值
+		dir = "/data/web/openresty-china/app/static/files", -- 文件目录，修改此值时须同时修改nginx配置文件中的$static_files_path值
 	},	
 
 }

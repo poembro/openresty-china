@@ -1,4 +1,4 @@
-# OpenResty IM  
+# OpenResty Posting on BBS  
 一个运行在[OpenResty](http://openresty.org)上的发帖论坛。
 
 

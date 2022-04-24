@@ -65,7 +65,7 @@
     color: #EB5424;
 }
 .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
-    color: #333;
+    color: #000000;
     border-bottom: 3px solid #FFF;
     padding-bottom: 12px;
 }
@@ -81,7 +81,7 @@
     color: #EB5424;
 }
 .header .navbar-inverse .navbar-toggle {
-    color: #333;
+    color: #000000;
     padding: 3px 9px;
     font-size: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -101,7 +101,7 @@
 }
 .header .navbar-inverse .navbar-nav > .open > a, .header .navbar-inverse .navbar-nav > .open > a:focus, .header .navbar-inverse .navbar-nav > .open > a:hover {
     background: #EEF3F5;
-    color: #333;
+    color: #000000;
 }
 .header .navbar-inverse .navbar-nav .open .dropdown-menu {
     position: absolute;
@@ -110,7 +110,7 @@
     background: #FFF;
 }
 .header .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #333;
+    color: #000000;
 }
 .header .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
     background-color: rgba(255, 255, 255, 0.05);
@@ -122,7 +122,8 @@
     margin: 0px;
 }
 .header .navbar-nav a {
-    color: #333;
+    color: #000000;
+    font-size: 16px;
 }
 .header .navbar-nav li.active a, .header .navbar-nav li.active a:focus, .header .navbar-nav li.active a:hover {
     border-bottom: 3px solid #EB5424;
@@ -138,7 +139,10 @@
     padding: 6px 8px;
     margin: 0;
 }
-@media (max-width: 767px) {
+
+
+/*****************************自定义了**************************************/
+@media only screen and (max-width: 767px) {
     .header .navbar-header {
         /*text-align: center;
         padding: 2px 0;*/
@@ -158,6 +162,7 @@
     .header .navbar-nav > li {
         float: left;
     }
+
     .header .navbar-nav.navbar-right {
         float: right;
     }
@@ -171,7 +176,22 @@
     .header .user-bar .dropdown.open .navbar-toggle {
         background-color: #EEF3F5;
     }
+    
+    .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
+        padding: 10px 10px;
+    }
 }
+
+@media only screen and (min-width: 100px) and (max-width: 359px){
+    /* 宽度在 480px <= screen <=360 范围的设备执行如下 */
+    .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
+        padding: 10px 4px;
+    }
+}
+/*******************************************************************/
+
+
+
 .header .form-search {
     font-size: 14px;
     position: relative;
@@ -179,7 +199,7 @@
     margin-right: 10px;
 }
 .header .form-search .fa {
-    color: #333;
+    color: #000000;
 }
 .header .form-search .fa:hover {
     color: #666;
@@ -214,7 +234,7 @@
     background: transparent;
     transition: all .3s;
     box-sizing: border-box;
-    color: #333;
+    color: #000000;
 }
 .header .form-search .form-control::-webkit-input-placeholder {
     color: #ddd;
@@ -243,7 +263,7 @@
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
 }
 a {
-    color: #356DD0;
+    color: #777;
 }
 .btn {
     border-radius: 3px;
@@ -742,7 +762,7 @@ img.emoji {
     text-align: left;
 }
 .node-list .node .name a:link, .node-list .node .name a:visited {
-    color: #333;
+    color: #000000;
 }
 .topics .panel-body {
     padding: 0 15px;
@@ -793,7 +813,7 @@ img.emoji {
     color: #EB5424;
 }
 .topics .filter a.active {
-    color: #333;
+    color: #000000;
     border-bottom: 1px dotted #ccc;
     text-decoration: none;
 }
@@ -876,7 +896,7 @@ img.emoji {
 .topic-detail .panel-heading h1 {
     margin-top: 0;
     font-size: 24px;
-    color: #333;
+    color: #000000;
     text-align: left;
     line-height: 100%;
     margin-bottom: 8px;
@@ -925,7 +945,7 @@ img.emoji {
     color: #999;
 }
 .topic-detail .info .opts a:hover {
-    color: #333;
+    color: #000000;
 }
 #topic-sidebar {
     position: fixed;
@@ -957,7 +977,7 @@ img.emoji {
 }
 #topic-sidebar .buttons .likes a:link, #topic-sidebar .buttons .likes a:hover, #topic-sidebar .buttons .likes a:visited {
     text-decoration: none;
-    color: #333;
+    color: #000000;
 }
 #topic-sidebar .buttons .likes a:hover {
     background: rgba(0, 0, 0, 0.03);
@@ -997,7 +1017,7 @@ img.emoji {
     color: #999;
 }
 #replies .info .opts a:hover {
-    color: #333;
+    color: #000000;
 }
 #replies .info .opts a.edit {
     display: none;
@@ -1273,7 +1293,7 @@ img.emoji {
     padding-bottom: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
-    color: #333;
+    color: #000000;
 }
 .markdown h5, .markdown h6 {
     font-size: 15px;
@@ -1300,7 +1320,7 @@ img.emoji {
 .markdown ul li, .markdown ol li {
     line-height: 1.6em;
     padding: 2px 0;
-    color: #333;
+    color: #000000;
     font-size: 13px;
 }
 .markdown ul ul, .markdown ol ul {

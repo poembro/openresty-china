@@ -16,8 +16,8 @@ end
 
 function topic_model:new(title, content, user_id, user_name, category_id)
 	local now = utils.now()
-    return db:query("insert into topic(title, content, user_id, user_name, category_id, create_time) values(?,?,?,?,?,?)",
-            {title, content, tonumber(user_id), user_name, tonumber(category_id), now})
+    return db:query("insert into topic(title, content, user_id, user_name, category_id, update_time,create_time) values(?,?,?,?,?,?,?)",
+            {title, content, tonumber(user_id), user_name, tonumber(category_id), now, now})
 end
 
 function topic_model:update(topic_id, title, content, user_id, category_id)
@@ -26,6 +26,7 @@ function topic_model:update(topic_id, title, content, user_id, category_id)
             {title, content,  tonumber(category_id), now, tonumber(topic_id), tonumber(user_id)})
 end
 
+-- 供管理员调用
 function topic_model:update2(topic_id, title, content, user_id, category_id)
 	local now = utils.now()
     return db:query("update topic set title=?, content=?, category_id=?, update_time=? where id=?",
@@ -38,6 +39,8 @@ function topic_model:get_my_topic(user_id, id)
     	" left join category c on t.category_id=c.id " ..
     	" where t.id=? and user_id=?", {tonumber(id),tonumber(user_id)})
 end
+
+-- 供管理员调用
 function topic_model:get_my_topic2(id)
     return db:query("select t.*, u.avatar as avatar, c.name as category_name from topic t "..
     	" left join user u on t.user_id=u.id " .. 
@@ -71,28 +74,28 @@ function topic_model:get_all(topic_type, category, page_no, page_size)
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.category_id=? " ..
-				" order by t.id desc limit ?,?",
+				" order by t.weight desc, t.update_time desc limit ?,?",
 				{category, (page_no - 1) * page_size, page_size})
-		elseif topic_type == "recent-reply" then
+		elseif topic_type == "recent-reply" then -- 最近回复的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.category_id=? " ..
-				" order by t.last_reply_time desc limit ?,?",
+				" order by t.weight desc,t.last_reply_time desc limit ?,?",
 				{category, (page_no - 1) * page_size, page_size})
-		elseif topic_type == "good" then
+		elseif topic_type == "good" then -- 优质/精华 的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.is_good=1 and t.category_id=? " ..
-				" order by t.id desc limit ?,?",
+				" order by t.weight desc,t.id desc limit ?,?",
 				{category, (page_no - 1) * page_size, page_size})
-		elseif topic_type == "noreply" then
+		elseif topic_type == "noreply" then -- 无人问津 的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t" .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.reply_num=0 and t.category_id=? " ..
-				" order by t.id desc limit ?,?",
+				" order by t.weight desc,t.id desc limit ?,?",
 				{category, (page_no - 1) * page_size, page_size})
 		end
 	else
@@ -100,27 +103,28 @@ function topic_model:get_all(topic_type, category, page_no, page_size)
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
-				" order by t.id desc limit ?,?",
+				" where t.id > 0 " ..
+				" order by t.weight desc, t.update_time desc limit ?,?",
 				{(page_no - 1) * page_size, page_size})
-		elseif topic_type == "recent-reply" then
+		elseif topic_type == "recent-reply" then -- 最近回复的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
-				" order by t.last_reply_time desc limit ?,?",
+				" order by t.weight desc,t.last_reply_time desc limit ?,?",
 				{(page_no - 1) * page_size, page_size})
-		elseif topic_type == "good" then
+		elseif topic_type == "good" then -- 优质/精华 的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.is_good=1" ..
-				" order by t.id desc limit ?,?",
+				" order by t.weight desc,t.id desc limit ?,?",
 				{(page_no - 1) * page_size, page_size})
-		elseif topic_type == "noreply" then
+		elseif topic_type == "noreply" then -- 无人问津 的帖子
 			res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t" .. 
 				" left join user u on t.user_id=u.id " ..
 				" left join category c on t.category_id=c.id " ..
 				" where t.reply_num=0 " ..
-				" order by t.id desc limit ?,?",
+				" order by t.weight desc,t.id desc limit ?,?",
 				{(page_no - 1) * page_size, page_size})
 		end
 	end

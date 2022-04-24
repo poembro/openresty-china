@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>本地社区 编辑文章</title>
+  <title>社区 编辑文章</title>
   {(meta.html)}
   <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload.css"/>
     <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload-ui.css"/>
@@ -20,9 +20,9 @@
                         <div class="col-xs-2">
                             <div class="form-group">
 
-                                <select class="form-control" name="category">
-                                    <option value ="1" {%if topic.category_id==1 then %} selected="selected" {% end %}>分享</option>
-                                    <option value ="2" {%if topic.category_id==2 then  %} selected="selected" {% end %}>问答</option>
+                                <select class="form-control" name="category" category_id={{topic.category_id}}>
+                                    <option value ="1">分享</option>
+                                    <option value ="2">问答</option>
                                 </select>
                             </div>
                         </div>
@@ -105,9 +105,44 @@
         });  
     }
 
+    function initCategory() {
+        var Dom =$("select[name=category]"); 
+        var category_id = Dom.attr("category_id")
+        $.ajax({
+            url : '/category/all',
+            type : 'GET',
+            data : {
+            },
+            dataType : 'json',
+            success : function(result) {
+                if(result.success){
+                    //console.log(result.data)
+                    var dst = result.data
+                    var optstr = ""
+                    for(var i = 0; i<dst.length; i++){ 
+                        if (category_id == dst[i].id) {
+                            optstr = optstr + '<option selected value ="'+ dst[i].id +'">'+ dst[i].name +'</option>'
+                        } else {
+                            optstr = optstr + '<option value ="'+ dst[i].id +'">'+ dst[i].name +'</option>'
+                        }
+                        
+                    }
+                    Dom.html(optstr)
+                }
+            },
+            error : function() {
+                APP.Common.showTipDialog("提示", "新建文章请求发生异常");
+            }
+        });  
+    }
+
     $(document).ready(function(){
+        //初始化编辑评论
         initEditComment();
+        // 初始化上传
         initUploader();
+        // 初始化 栏目
+        initCategory();
 
         $("#commit").click(function(){
             var topic_id = $("input[name=topic_id]").val();

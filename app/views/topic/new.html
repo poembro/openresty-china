@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>本地社区 &raquo; 发布文章</title>
+  <title>社区 &raquo; 发布文章</title>
   {(meta.html)}
   <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload.css"/>
     <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload-ui.css"/>
@@ -104,9 +104,39 @@
         });  
     }
 
+    function initCategory() {
+        var Dom =$("select[name=category]"); 
+        $.ajax({
+            url : '/category/all',
+            type : 'GET',
+            data : {
+            },
+            dataType : 'json',
+            success : function(result) {
+                if(result.success){
+                    //console.log(result.data)
+                    var dst = result.data
+                    var optstr = ""
+                    for(var i = 0; i<dst.length; i++){ 
+                        optstr = optstr + '<option value ="'+ dst[i].id +'">'+ dst[i].name +'</option>'
+                    }
+                    Dom.html(optstr)
+                }
+            },
+            error : function() {
+                APP.Common.showTipDialog("提示", "新建文章请求发生异常");
+            }
+        });  
+    }
+
     $(document).ready(function(){
+        //初始化编辑评论
         initEditComment();
+        // 初始化上传
         initUploader();
+        // 初始化 栏目
+        initCategory();
+
 
         $("#commit").click(function(){
             var category_id =$("select[name=category]").val();

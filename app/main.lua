@@ -22,7 +22,7 @@ app:conf("views", view_config.views)
 --     suffix = true
 -- }))
 
---[[ 
+--[[
     开启cookie 上传 验证 登陆
 --]]
 app:use(cookie_middleware());

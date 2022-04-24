@@ -81,11 +81,11 @@ function _M.days_after_registry(create_time)
     if create_time then
         local now = date() -- seconds
         create_time = date(create_time)
-        ngx.log(ngx.ERR, "===>", now, " ====", create_time)
+        --ngx.log(ngx.ERR, "===>", now, " ====", create_time)
         diff = date.diff(now, create_time):spandays()
         diff_days = mfloor(diff)
     end 
-    ngx.log(ngx.ERR, "diff_days, diff==>  ", diff_days, "  ==  ", diff, "  -  ", create_time)
+    --ngx.log(ngx.ERR, "diff_days, diff==>  ", diff_days, "  ==  ", diff, "  -  ", create_time)
     return diff_days, diff
 end
 

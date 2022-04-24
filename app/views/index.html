@@ -115,7 +115,9 @@
             <div class="infos media-body">
                 <div class="title media-heading"> 
                     <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
-                    <!-- <i class="fa fa-thumb-tack" title="置顶"></i> -->
+                    {@if t.weight > 0 }
+                        <i class="fa fa-thumb-tack" title="置顶"></i>
+                    {@/if}
 
                     {@if t.is_good==1 }
                         <i title="精华帖" class="fa fa-diamond"></i>

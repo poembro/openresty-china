@@ -9,7 +9,7 @@ local function topics_category_handler(current_category, req, res, next)
 	local comment_count = comment_model:get_total_count()
     local topic_count = topic_model:get_all_count()
     local user_count = user_model:get_total_count()
-    ngx.log(ngx.ERR, "--->", res.locals.create_time)
+    --ngx.log(ngx.ERR, "--->", res.locals.create_time)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
 
     res:render("index", {
@@ -44,7 +44,7 @@ common_router.settings = function(req, res, next)
 end
 
 common_router.index = function(req, res, next)
-	local current_category = 0
+	local current_category = req.query.category or 0
     topics_category_handler(current_category, req, res, next)
 end
 

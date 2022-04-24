@@ -29,8 +29,6 @@ function notification_model:get_all(user_id, n_type, page_no, page_size)
 			" where n.user_id = ? and n.status=0 " .. 
 			" order by id desc limit ?,?", {user_id, (page_no - 1) * page_size, page_size})
 	end
-
-	
 end
 
 function notification_model:get_total_count(user_id, n_type)
@@ -81,7 +79,6 @@ function notification_model:follow_notify(from_id, user_id)
 	db:query("insert into notification(user_id, from_id, type, content) values(?,?,?,?)",
             {tonumber(user_id), tonumber(from_id), 2, ""})
 end
-
 
 
 -- 全部标记为已读

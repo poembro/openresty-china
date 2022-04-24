@@ -4,6 +4,7 @@ local lor = require("lor.index")
 local user_model = require("app.model.user")
 local topic_model = require("app.model.topic")
 local comment_model = require("app.model.comment")
+local category_model = require("app.model.category")
 local category_router = lor:Router()
 
 
@@ -16,17 +17,19 @@ category_router:get("/:category_id", function(req, res, next)
 		return res:redirect("/ask")
 	end
 
-    local comment_count = comment_model:get_total_count()
-    local topic_count = topic_model:get_all_count()
-    local user_count = user_model:get_total_count()
-    res:render("index", {
-		user_count = user_count,
-		topic_count = topic_count,
-		comment_count = comment_count,
-		current_category = current_category
-    })
+    return res:redirect("/index?category=" .. current_category or 0)
 end)
 
+category_router:get("/all", function(req, res, next)
+    local dst = category_model:get_all()
 
+	if dst then 
+		res:json({
+			success = true,
+			data = dst
+		})
+	end
+	return
+end)
 
 return category_router

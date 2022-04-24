@@ -1,6 +1,7 @@
 # OpenResty IM  
 一个运行在[OpenResty](http://openresty.org)上的发帖论坛。
 
+
 ---
 
 ## 特点
@@ -17,7 +18,8 @@
 
 ## 案例
 
-   [体验demo](http://kefu2.youuue.com/)
+- [体验demo](http://kefu2.youuue.com/)
+- [项目地址](https://github.com/poembro/openresty-china) : https://github.com/poembro/openresty-china
 
 ---
 

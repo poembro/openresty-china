@@ -35,6 +35,7 @@ conf:         配置
 
 ## 安装
 ``` 
+安装mysql 省略 导入数据库 conf/openresty_china_2022-04-24.sql 
 [root@iZ~]#wget https://openresty.org/download/openresty-1.11.2.3.tar.gz
 [root@iZ~]#tar xvf openresty-1.11.2.3.tar.gz
 [root@iZ~]#cd openresty-1.11.2.3

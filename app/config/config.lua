@@ -53,7 +53,7 @@ return {
 	        port = 3306,
 	        database = "openresty_china",
 	        user = "root",
-	        password = "123456",
+	        password = "NOjyVFBqlCvhWM",
 	        max_packet_size = 1024 * 1024
 		},
 		pool_config = {

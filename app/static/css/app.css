@@ -26,11 +26,16 @@
 
 #main{
 	min-height:450px;
+	
 }
 
+.container{
+	width: 80%;
+}
+ 
 .copyright{
 	font-size: 12px;
-		margin-top: 5px;
+	margin-top: 5px;
 }
 
 #topics-body .topic:last-child{

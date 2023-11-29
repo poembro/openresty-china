@@ -1,9 +1,4 @@
-local pairs = pairs
-local ipairs = ipairs
 local lor = require("lor.index")
-local user_model = require("app.model.user")
-local topic_model = require("app.model.topic")
-local comment_model = require("app.model.comment")
 local category_model = require("app.model.category")
 local category_router = lor:Router()
 

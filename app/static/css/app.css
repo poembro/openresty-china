@@ -4,8 +4,7 @@
     width: 70px;
     top: 70px;
     left: 10px;
-    color: #bbb;
-    font-size: 12px;
+    color: #bbb; 
 }
 #response-time-area p{
 	margin-bottom:2px;
@@ -25,16 +24,11 @@
 }
 
 #main{
-	min-height:450px;
-	
+	min-height:450px; 
 }
 
-.container{
-	width: 80%;
-}
- 
+
 .copyright{
-	font-size: 12px;
 	margin-top: 5px;
 }
 
@@ -77,7 +71,7 @@
 .label-success, .label-danger, .label-info {
 	color:#fff;
 	padding: 2px 8px;
-		border-radius: 8px;
+	border-radius: 8px;
 }
 
 #avatar_upload_progress_bar{
@@ -86,8 +80,7 @@
 }
 
 a.btn-tiny {
-	padding: 0 8px;
-    font-size: 12px;
+	padding: 0 8px; 
     height: 24px;
     line-height: 24px;
     color: #fff;
@@ -95,14 +88,11 @@ a.btn-tiny {
 
 
 /* user-index page start*/
-#relation-op-area span{
-	font-size:12px;
+#relation-op-area span{ 
 }
 
-.user-index-tab-content .tab-body {
-	
-	margin-top: 3px;
-    font-size: 12px;
+.user-index-tab-content .tab-body { 
+	margin-top: 3px; 
     color: #bbb;
 }
 
@@ -117,8 +107,7 @@ a.btn-tiny {
 }
 
 .user-index-tab-content .title a{
-	color: #356DD0;
-	font-size:14px;
+	color: #356DD0; 
 }
 
 
@@ -137,8 +126,7 @@ a.btn-tiny {
     border-bottom:none;
 }
 
-.user-index-tab-content .pagination2{
-	font-size:12px;
+.user-index-tab-content .pagination2{ 
 	height: 30px;
 	padding: 0 0;
 }

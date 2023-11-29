@@ -13,6 +13,7 @@
         <div class="col-md-9">
             <div class="topics panel panel-default">
                 <div class="panel-heading clearfix">
+
                     <div class="filter pull-right" id="topic-type-tab"> 
                         <span class="l">查看:</span>
                         <a id="default-topics-btn" href="javascript:void(0);" class="active">默认</a> / 
@@ -20,12 +21,34 @@
                         <a id="good-topics-btn" href="javascript:void(0);" class="popular"><i class="fa fa-diamond"></i> 优质帖子</a> / 
                         <a id="noreply-topics-btn" href="javascript:void(0);">无人问津</a>
                     </div>
+
+
                 </div>
                 <div class="panel-body" id="topics-body"></div><!-- topics -->  
                 <div class="panel-footer clearfix" id="pagebar" style="display:none;"></div><!-- page bar -->  
             </div>
             
-            <!-- <div class="panel panel-default">
+
+            {% if categorys then %}
+            <div class="panel panel-default">
+                <div class="panel-heading">更多分类</div>
+                <div class="panel-body location-list"> 
+                    <span class="name"> 
+                        <a href="/index" rel="nofollow">全部</a>
+                    </span>
+                    {% for _, v in pairs(categorys) do %}
+                    <span class="name"> 
+                        <a href="/index?category={{v.id}}" rel="nofollow">
+                        {{v.name}} 
+                        </a>
+                    </span>
+                    {% end %} 
+                </div>
+            </div>
+            {% end %}
+
+            <!-- 
+           <div class="panel panel-default">
                 <div class="panel-heading">热门城市</div>
                 <div class="panel-body location-list" style="text-align:center;">
                      <span class="name"><a href="/users/city/%E5%8C%97%E4%BA%AC">北京</a></span>
@@ -34,7 +57,8 @@
                      <span class="name"><a href="/users/city/%E6%B7%B1%E5%9C%B3">深圳</a></span>
                      <span class="name"><a href="/users/city/%E5%B9%BF%E5%B7%9E">广州</a></span>
                 </div>
-            </div> -->
+            </div> 
+            -->
         </div>
         <div class="sidebar col-md-3">
             {% if diff_days < 3 then %}
@@ -54,7 +78,8 @@
                 </div>
             </div>
             {% end %}
-     
+      
+
             <div class="panel panel-default">
                 <div class="panel-heading">友情社区</div>
                 <ul class="list-group" style="text-align:center">
@@ -80,6 +105,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">推荐资源</div>
                 <ul class="list-group">
@@ -89,6 +115,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">统计信息</div>
                 <ul class="list-group">

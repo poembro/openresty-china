@@ -98,54 +98,76 @@
 
         initDeleteTopic: function(){
         	$(document).on("click", ".delete-topic", function(){
-        		var topic_id = $(this).attr("data-id");
-        		$.ajax({
-                    url : '/topic/'+topic_id+'/delete',
-                    type : 'get',
-                    data : {},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result.success){
-                        	window.location.href="/";
-                        }else{
-                            L.Common.showTipDialog("提示", result.msg);
-                        }
-                    },
-                    error : function() {
-                        L.Common.showTipDialog("提示", "删除文章请求发生错误");
-                    }
-                });
+				var topic_id = $(this).attr("data-id");
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+						$.ajax({
+							url : '/topic/'+topic_id+'/delete',
+							type : 'get',
+							data : {},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									window.location.href="/";
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除文章请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
+        		
         	});
         },
 
          initDeleteComment: function(){
             $(document).on("click", ".delete-comment", function(){
-                var comment_id = $(this).attr("data-id");
-                $.ajax({
-                    url : '/comment/'+comment_id+'/delete',
-                    type : 'get',
-                    data : {},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result.success){
-                            $("#reply_"+comment_id).remove();
-                            $(".total-comment-count").each(function(){
-				            	var last_count = 0;
-				            	try{
-				            		last_count = parseInt($(this).text());
-				            	}catch(e){}
-				            	if(last_count>=1){
-				            		$(this).text(last_count-1);
-				            	}
-							});
-                        }else{
-                            L.Common.showTipDialog("提示", result.msg);
-                        }
-                    },
-                    error : function() {
-                        L.Common.showTipDialog("提示", "删除评论请求发生错误");
-                    }
-                });
+				var comment_id = $(this).attr("data-id");
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+						$.ajax({
+							url : '/comment/'+comment_id+'/delete',
+							type : 'get',
+							data : {},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									$("#reply_"+comment_id).remove();
+									$(".total-comment-count").each(function(){
+										var last_count = 0;
+										try{
+											last_count = parseInt($(this).text());
+										}catch(e){}
+										if(last_count>=1){
+											$(this).text(last_count-1);
+										}
+									});
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除评论请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
+                
             });
         },
 
@@ -375,29 +397,29 @@
 			            }
 			        });
         		}else if(op=="cancel_like"){
-        			L.Common.showTipDialog("提示", "已赞过的文章不允许取消赞.");
-        			// $.ajax({
-			        //     url : '/topic/cancel_like',
-			        //     type : 'post',
-			        //     data: {
-			        //         topic_id: topic_id
-			        //     },
-			        //     dataType : 'json',
-			        //     success : function(result) {
-			        //         if(result.success){
-			        //         	_self.attr("data-op", "like");
-			        //         	_self.removeClass("active");
-			        //         	$(".like-num-text").each(function(){
-			        //         		$(this).text(parseInt($(this).text())-1);
-			        //         	});
-			        //         }else{
-			        //             L.Common.showTipDialog("提示", result.msg);
-			        //         }
-			        //     },
-			        //     error : function() {
-			        //         L.Common.showTipDialog("提示", "发送请求失败.");
-			        //     }
-			        // });
+        			// L.Common.showTipDialog("提示", "已赞过的文章不允许取消赞.");
+        			$.ajax({
+			            url : '/topic/cancel_like',
+			            type : 'post',
+			            data: {
+			                topic_id: topic_id
+			            },
+			            dataType : 'json',
+			            success : function(result) {
+			                if(result.success){
+			                	_self.attr("data-op", "like");
+			                	_self.removeClass("active");
+			                	$(".like-num-text").each(function(){
+			                		$(this).text(parseInt($(this).text())-1);
+			                	});
+			                }else{
+			                    L.Common.showTipDialog("提示", result.msg);
+			                }
+			            },
+			            error : function() {
+			                L.Common.showTipDialog("提示", "发送请求失败.");
+			            }
+			        });
         		}
         	});
         },

@@ -181,7 +181,12 @@
             nav = "nav-share";
         }else if(current_category == "2"){
             nav = "nav-ask";
+        }else if(current_category == "7"){
+            nav = "nav-code";
         }
+        console.log("-->current_category : ", current_category)
+        console.log("-->nav : ", nav)
+
         APP.Common.resetNav(nav);
         APP.Index.init(current_category);
     });

@@ -50,15 +50,17 @@ end
 common_router.index = function(req, res, next)
 	local current_category = req.query.category or 0
     topics_category_handler(current_category, req, res, next)
-end
-
+end 
 common_router.share = function(req, res, next)
 	local current_category = 1
     topics_category_handler(current_category, req, res, next)
-end
-
+end 
 common_router.ask = function(req, res, next)
 	local current_category = 2
+     topics_category_handler(current_category, req, res, next)
+end
+common_router.code = function(req, res, next)
+	local current_category = 7
      topics_category_handler(current_category, req, res, next)
 end
 

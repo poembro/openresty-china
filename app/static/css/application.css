@@ -50,6 +50,8 @@ body {
     font-size: 16px;
     font-family:"RobotoDraft", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+
 .header .navbar {
     background-color: #FFF;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -86,6 +88,9 @@ body {
     font-size: 18px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background-color: rgba(255, 255, 255, 0.05);
+}
+.navbar-inverse .navbar-toggle .icon-bar{
+    background-color: #000000;
 }
 .header .navbar-inverse .navbar-toggle:focus {
     background-color: rgba(255, 255, 255, 0.05);
@@ -138,18 +143,12 @@ body {
     padding: 6px 8px;
     margin: 0;
 }
-
-@media (min-width: @screen-sm-min) {
-    .container{
-        width: 80%;
-    }
-}
-
+/* */
 /*****************************自定义了**************************************/
+/* 宽度小于 767px
 @media only screen and (max-width: 767px) {
-    .header .navbar-header {
-        /*text-align: center;
-        padding: 2px 0;*/
+ 
+    .header .navbar-header { 
         display: none;
     }
     .header .navbar-header .navbar-brand {
@@ -184,16 +183,25 @@ body {
         padding: 10px 10px;
     }
 }
+ */
 
-@media only screen and (min-width: 100px) and (max-width: 359px){
-    /* 宽度在 480px <= screen <=360 范围的设备执行如下 */
+/* 宽度在 480px <= screen <=360 范围的设备执行如下
+@media only screen and (min-width: 100px) and (max-width: 359px){ 
     .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
         padding: 10px 4px;
     }
 }
+ */
+
+@media screen and (min-width:1200px){
+    .container{
+        width: 80%;
+    }
+}
+
 /*******************************************************************/
 
-
+/*
 
 .header .form-search {
     font-size: 14px;
@@ -218,7 +226,7 @@ body {
     position: absolute;
     top: 6px;
     right: 0px;
-    /*display: none;*/
+    
     cursor: pointer;
     -webkit-transform: scale(0, 0);
     -moz-transform: scale(0, 0);
@@ -255,6 +263,7 @@ body {
     -moz-transform: scale(1, 1);
     transform: scale(1, 1);
 }
+*/
 .sidebar {
     padding-left: 5px;
 }
@@ -413,6 +422,8 @@ a {
 .control-label.checkbox {
     text-align: left;
 }
+
+/*
 .form-control {
     border-radius: 0px;
     border-color: #D5DCE1;
@@ -439,6 +450,7 @@ textarea.form-control, #preview.form-control, textarea.form-control:focus {
     padding: 6px;
     border-bottom-width: 1px;
 }
+*/
 .editor-toolbar .nav-pills > li > a {
     border-radius: 3px 3px 0 0;
     padding: 3px 23px;

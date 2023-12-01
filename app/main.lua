@@ -62,6 +62,8 @@ app:get("/", common_router.index)
 app:get("/index", common_router.index)
 app:get("/share", common_router.share)
 app:get("/ask", common_router.ask)
+app:get("/code", common_router.code)
+
 app:get("/settings", common_router.settings)
 app:get("/about", common_router.about)
 

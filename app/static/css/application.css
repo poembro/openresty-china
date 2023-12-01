@@ -139,6 +139,11 @@ body {
     margin: 0;
 }
 
+@media (min-width: @screen-sm-min) {
+    .container{
+        width: 80%;
+    }
+}
 
 /*****************************自定义了**************************************/
 @media only screen and (max-width: 767px) {

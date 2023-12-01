@@ -92,45 +92,69 @@
 
         initDeleteTopic: function(){
         	$(document).on("click", ".delete-topic", function(){
-        		var topic_id = $(this).attr("data-id");
-        		$.ajax({
-                    url : '/topic/'+topic_id+'/delete',
-                    type : 'get',
-                    data : {},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result.success){
-                        	$("#topic-li-"+topic_id).remove();
-                        }else{
-                            L.Common.showTipDialog("提示", result.msg);
-                        }
-                    },
-                    error : function() {
-                        L.Common.showTipDialog("提示", "删除文章请求发生错误");
-                    }
-                });
+
+				var topic_id = $(this).attr("data-id");
+				
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+							
+						$.ajax({
+							url : '/topic/'+topic_id+'/delete',
+							type : 'get',
+							data : {},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									$("#topic-li-"+topic_id).remove();
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除文章请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
+			
         	});
         },
 
         initDeleteComment: function(){
             $(document).on("click", ".delete-comment", function(){
-                var comment_id = $(this).attr("data-id");
-                $.ajax({
-                    url : '/comment/'+comment_id+'/delete',
-                    type : 'get',
-                    data : {},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result.success){
-                            $("#comment-li-"+comment_id).remove();
-                        }else{
-                            L.Common.showTipDialog("提示", result.msg);
-                        }
-                    },
-                    error : function() {
-                        L.Common.showTipDialog("提示", "删除评论请求发生错误");
-                    }
-                });
+				var comment_id = $(this).attr("data-id"); 
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+						$.ajax({
+							url : '/comment/'+comment_id+'/delete',
+							type : 'get',
+							data : {},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									$("#comment-li-"+comment_id).remove();
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除评论请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
             });
         },
 

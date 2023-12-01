@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<title>demo</title>
+<style>
+@charset "UTF-8";
+
+/*字体样式*/  
+input[type=button], input[type=submit], button{-webkit-appearance: none;  outline: none; }
+html {
+    -ms-text-size-adjust: 100%;  
+    -webkit-text-size-adjust: 100%;  
+    height: 100%;  
+}
+
+/*标签格式化*/ 
+body { 
+    margin:0;padding:0;
+    font-family:  "RobotoDraft", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+input,button{font-family:微软雅黑,arial;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p,figure{padding:0;margin:0;}
+ol,ul{list-style:none;}
+li{list-style-type:none;}
+img{vertical-align:top;border:0;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:normal;}
+em,i{font-style:normal;}
+iframe{margin:0;padding:0;vertical-align:top;}
+
+/*链接样式*/
+a{color:#356DD0;text-decoration:none;}
+a:visited{text-decoration:none;}
+a:hover{color:#d01162;text-decoration:none;}
+a:active{color:#d01162;}
+
+/*字体颜色*/
+.cGreen,.cGreen:visited,.cGreen a,.green{color:#6b9333;}
+.cBlue,.cBlue:visited,.cBlue a{color:#1E50A2;}
+.cRed,.cRed:visited,.cRed a,a.cRed{color:#b12a31;}
+.cRed2,.cRed2:visited,.cRed2 a,a.cRed{color:#fe4241;}
+.cDRed,.cDRed:visited,.cDRed a{color:#d00f63;}
+.cDRed a:hover,a.cDRed:hover{color:#ba2636;}
+
+.cPlum,.cPlum:visited,.cPlum a,.cPlum a:hover,a.cPlum:hover{color:#eb3e90;}
+.cPlum2,.cPlum2:visited,.cPlum2 a{color:#f660a0;}
+.cGray,.cGray:visited,.cGray a,a.cGray{color:#acacac;}
+
+/*框架布局*/
+.w{clear:both;width:1000px;margin:0 auto;}
+.fl{float:left;}
+.fr{float:right;}
+.ovH{overflow:hidden;}
+.poR{position:relative;}
+
+/*文本对齐*/
+.tL{text-align:left;}
+.tR{text-align:right;}
+
+/*间距*/
+.mt10{margin-top:10px;}.mr10{margin-right:10px;}.mb10{margin-bottom:10px;}.ml10{margin-left:10px;}
+.mt20{margin-top:20px;}.mr20{margin-right:20px;}.mb20{margin-bottom:20px;}.ml20{margin-left:20px;}
+.mt30{margin-top:30px;}.mr30{margin-right:30px;}.mb30{margin-bottom:30px;}.ml30{margin-left:30px;}
+.mt40{margin-top:40px;}.mr40{margin-right:40px;}.mb40{margin-bottom:40px;}.ml40{margin-left:40px;}
+/*清除浮动*/
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix { display: inline-table; }
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%; }
+.clearfix {display: block;}
+.center { text-align: center;}
+@media (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) { html {font-size: 23.4px; } }
+@media (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) { html {font-size: 25.8px; } }
+ 
+.body .member { color: #fff;   text-align: center;  width: 100%;}
+.body .member ul li{
+	display: block;
+    float:left; 
+    margin: 3% 0;
+}
+.body .member ul li a{
+    font-size: 0.71rem;
+    text-decoration:none; 
+}
+
+ 
+
+/*信息*/  
+.member {  
+    height:30%;
+    width: 100%;
+    position: absolute;
+}
+.member  ul li {
+    border-bottom: 1px solid #ececec; 
+    line-height: 1.5rem;
+    background: #356DD0;
+}
+
+.footer {
+    border-top: 1px solid #2a2828; 
+    background-color: white;
+    border-top: 1px solid #ccc;
+    bottom: 0;
+    height: 70%;
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+}
+
+.footer  ul{
+    padding:10px 10px 0;
+    overflow-y: scroll;
+    overflow-x: hidden; 
+    flex: 1;
+    height: 360px;
+}
+
+.footer  ul li {
+    border-bottom: 1px solid #ececec; 
+    line-height: 1.5rem;
+}
+
+</style>
+</head>
+
+<body class="body">  
+    <div class="member">  
+      
+        <ul id="msglist"> 
+
+        </ul>
+            
+    </div>
+    
+    <div class="footer">  
+        <ul id="history"  style="padding:10px 10px 0; overflow-y:auto;  overflow-x: hidden;  flex: 1;  "> 
+            <li ><div><a  href="https://v.douyin.com/J12MJnN/"> banner  snssdk2329://aweme/detail/J1qWTyj</a></div></li> 
+            <li ><div><a  href="snssdk1128://aweme/detail/6828455556152380687?refer=web&gd_label=click_wap_detail_download_feature&appParam=%7B%22__type__%22%3A%22wap%22%2C%22position%22%3A%22900718067%22%2C%22parent_group_id%22%3A%226553813763982626051%22%2C%22webid%22%3A%226568996356873356814%22%2C%22gd_label%22%3A%22click_wap%22%7D&needlaunchlog=1"> banner  snssdk2329://aweme/detail/J1qWTyj</a></div></li> 
+  
+        </ul>     
+    </div>
+<script src="https://cdn.staticfile.org/socket.io/2.3.0/socket.io.js"></script> 
+<script src="http://591pubg.com/static/js/jquery-2.2.1.min.js" type="text/javascript"></script>  
+<script type="text/javascript"> 
+$(function(){
+    var _ = {};
+     
+    function basename(str) {
+        var idx = str.lastIndexOf('/')
+        idx = idx > -1 ? idx : str.lastIndexOf('\\')
+        if (idx < 0) {
+            return str
+        }
+        return str.substring(idx + 1);
+    }
+
+    var getQueryString = function (name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    } 
+    
+    _.comet = {
+        index:0,
+        token : '',
+        account:'',
+        init : function () {
+            var self = this; 
+            var account = getQueryString("account") || "223456"; 
+            self.account = account
+            self.getToken(account); 
+            self.sub();
+            return true;
+        },
+
+        handle : function (res){
+            var self = this;
+            var opt = $("#msglist")
+            if (res && res.data && res.data.url) { 
+                opt.html('<li ><div><a  href="' + res.data.url  + '"> banner  ' + res.data.url  + '</a></div></li>')
+            }else{
+                opt.html("")
+            }
+            return true;
+        },
+         
+        sub : function() {
+            var self = this; 
+            var ajax =  $.ajax({
+                type : "GET",
+                url :"/api/get?account=" + self.account,
+                global: true, //希望产生全局的事件
+                data : { },
+                timeout : 27000,
+                //cache:true,
+                async: true, //是否异步
+                contentType:'application/x-www-form-urlencoded;charset=utf-8',
+                dataType:"json", // 数据格式指定为jsonp 
+                success:function(data){
+                    if (data.data.typ == 11011 && data.data.id) {
+                        //提交审核
+                       
+                    }
+                    self.handle(data); 
+                    setTimeout(function (){ self.sub(); }, 2000);
+                    return true; 
+                },
+                error:function (res, status, errors){
+                    setTimeout(function (){ self.sub(); }, 5000);
+                },
+                complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                    if(status=='timeout'){//超时,status还有success,error等值的情况
+                        ajax.abort(); 
+                    }
+                }
+            });
+            return true;
+        },
+        getToken :function(account) {
+            var self = this; 
+            var ajax =  $.ajax({
+                type : "GET",
+                url :"http://www.sgsbbs.cn/api/gettoken?account=" + account  ,
+                global: true, //希望产生全局的事件
+                data : {body:1},
+                timeout : 27000,
+                //cache:true,
+                async: false, //是否异步
+                contentType:'application/x-www-form-urlencoded;charset=utf-8',
+                dataType:"json", // 数据格式指定为jsonp 
+                success:function(data){ 
+                    if (!data.data) {
+                        //alert("token 获取失败 是不是nginx重启了")
+                        var str = "<li> <span>token 获取失败 </span>  </li>";
+                        self.log(str)
+                        return 
+                    }
+                    self.token = data.data
+                    self.websocket(self.token);
+                    return true; 
+                },
+                error:function (res, status, errors){},
+                complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                    if(status=='timeout'){//超时,status还有success,error等值的情况
+                        ajax.abort(); 
+                    }
+                }
+            });
+        },
+        websocket : function (token) {
+            var self = this;   
+            var url = 'https://socket.hulihuzhu.com/'
+            const socket = io(url, { transports: ['websocket'], query: { user_type: 'single',  user_not: '', sku_type: '2_5_0-2_1_0-2_3_0-2_3_1-2_3_2',  sku_not: '', token: token, } });
+            
+            socket.on('message', function(data) {
+                //console.log(data); 
+                var r = JSON.stringify(data)
+                var str = "<li> <span>socketio 动作 message : " + r + "  </span>  </li>";
+                self.log(str) 
+                socket.emit('my other event', {my: "data"});
+            });
+
+            socket.on('task-dispatch', function(data) {
+               // console.log(data)
+                console.log('去领取')  //当收到监听task-dispatch回调事件时，向服务器发送task-receive事件领取任务，当领取任务成功后会收到task-received事件回调
+                socket.emit('task-receive', data.data);
+            });
+
+            socket.on('task-received', function(data) {
+                //console.log(data)
+                console.log('领取成功 --> 注意body')
+                var r = JSON.stringify(data.data.task_order_info)
+                var str = "<li> <span>socketio 动作 task-received : " + r + "  </span>  </li>";
+                self.log(str)
+
+
+                var order = data.data.task_order_info 
+                var url =   (order.url) 
+
+                var id = data.data.id  //用来提交审核的 
+                var body = ""
+                if (order.content) {
+                    body =  order.content
+                } else {
+                    var Arr = ['[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]',
+                     '我要抢沙发!!![微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]', 
+                     '哈哈哈哈哈哈哈[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]', 
+                  '我要抢热门!!![微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]',
+                  '[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]', 
+                  '[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑[微笑][微笑][微笑][微笑][微笑][微笑]种草', 
+                 '快快回复我!!![微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]',
+                  '[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]',
+                 '翻我，翻我，翻我[微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]',
+                   '我看谁和我争头牌!![微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑][微笑]']; 
+                    var n = Math.floor(Math.random() * Arr.length + 1)-1; 
+                    body = Arr[n]; 
+                } 
+
+                var typ = 0 
+                switch (order.task_type) {
+                    case "2_1_0":
+                        typ = 1; break;// 点赞
+                    case "2_5_0":
+                        typ = 2; break;// 关注 
+                    case "2_3_0":
+                        typ = 3;  break;
+                    case "2_3_1":
+                        typ = 3;  break;
+                    case "2_3_2":
+                        typ = 3;  break;
+                    default:
+                        return
+                }
+                if (url.indexOf("weibo")>=0) {
+                    return
+                }
+                self.add(id, url, typ, body) 
+            });
+
+            socket.on('error', function(data) {
+                console.log("错误提示")
+                //console.log(data)
+                var r = JSON.stringify(data)
+                var str = "<li> <span>socketio 动作error  错误提示:  " + r + " </span>  </li>";
+                self.log(str)
+            });
+
+            socket.on('disconnect', function(data) {
+                console.log("disconnect")
+                //console.log(data)
+                socket.close();
+
+                var r = JSON.stringify(data)
+                var str = "<li> <span>socketio 动作 关闭连接disconnect: " + r + "  </span>  </li>";
+                self.log(str)
+            });
+
+
+            //重连
+            var num = 0
+            var interval 
+            interval = setInterval(function (){
+                var str = "<li> <span>socketio.connected 连接状态:" + socket.connected + " --->" + self.index + "</span>    </li>";
+                self.log(str)
+                
+                if (!socket.connected) {
+                    
+                    num ++  
+                    if (num > 3) {
+                        num = 0
+                        clearInterval(interval );//停止
+                        self.websocket(self.token) 
+                    } 
+                    
+                }
+                
+                self.index ++;
+            }, 8 * 1000); 
+        },
+        add : function(id, url, typ, body){
+            var self = this;
+             if (!id) {
+                 return false;
+            }
+            
+            var str = "<li> <span>id:" + id+ "</span><span>   url:"+url+"</span> <span>   typ:"+typ+"</span> <span>  body:"+body+"</span> </li>";
+            self.log(str)
+
+            var r = JSON.stringify({id:id,url:url,typ:typ,body:body})
+            var ajax =  $.ajax({
+                type : "POST",
+                url :"http://www.sgsbbs.cn/api/push?account=" + self.account  ,
+                global: true, 
+                data : {body:r, account:self.account},
+                timeout : 27000, 
+                async: true, //是否异步
+                contentType:'application/x-www-form-urlencoded;charset=utf-8',
+                dataType:"json", // 数据格式指定为jsonp 
+                success:function(data){ 
+                    //alert("success")
+                    return true; 
+                },
+                error:function (res, status, errors){},
+                complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                    if(status=='timeout'){//超时,status还有success,error等值的情况
+                        ajax.abort(); 
+                    }
+                }
+            });
+
+            return true;
+        }, 
+
+        log:function(data) {
+            var history = $("#history")
+            history.append(data) 
+            if (history.children().length > 36) {
+                history.children().first().remove() 
+            } 
+        }
+    }
+   
+    _.comet.init(); //连接
+}); 
+</script> 
+</body>
+</html> 
+

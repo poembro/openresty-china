@@ -44,10 +44,10 @@
     animation-name: bounceIn;
 }
 /* Bootstrap Theme */
- body {
+body {
     background: #E7EAEC;
     color: #222527;
-    font-size: 12px;
+    font-size: 16px;
     font-family:"RobotoDraft", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .header .navbar {
@@ -123,7 +123,6 @@
 }
 .header .navbar-nav a {
     color: #000000;
-    font-size: 16px;
 }
 .header .navbar-nav li.active a, .header .navbar-nav li.active a:focus, .header .navbar-nav li.active a:hover {
     border-bottom: 3px solid #EB5424;
@@ -149,7 +148,6 @@
         display: none;
     }
     .header .navbar-header .navbar-brand {
-        font-size: 12px;
         float: none;
         margin: 0 auto;
         height: auto;
@@ -186,6 +184,11 @@
     /* 宽度在 480px <= screen <=360 范围的设备执行如下 */
     .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
         padding: 10px 4px;
+    }
+}
+@media screen and (min-width:1200px){
+    .container{
+        width: 80%;
     }
 }
 /*******************************************************************/
@@ -282,9 +285,10 @@ a {
     background: #eaeaea;
     border-color: #ddd;
 }
-.btn-default.active {
-    background: #f0f0f0;
+.btn.active {
+    background: #EB5424;
     border-color: #d0d0d0;
+    color: #FFF;
 }
 .btn-primary, .btn-primary:visited {
     background: #356DD0;
@@ -588,7 +592,7 @@ kbd {
     border: 0px;
     border-radius: 3px;
     border: 0px;
-    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.09); 
 }
 .panel .panel-heading {
     background: #f5f5f5;
@@ -829,8 +833,7 @@ img.emoji {
 .topics .topic {
     min-height: 68px;
     border-bottom: 1px solid #F0F0F0;
-    padding: 10px 15px;
-    margin: 0 -15px;
+    padding: 1% 1.5%; 
     vertical-align: top;
     position: relative;
 }
@@ -841,7 +844,8 @@ img.emoji {
     text-align: center;
 }
 .topics .topic .title {
-    font-size: 15px;
+    font-size: 16px;
+    color: #778087;
 }
 .topics .topic .title i.fa {
     color: #999;
@@ -851,13 +855,12 @@ img.emoji {
     color: #EB5424;
 }
 .topics .topic .info {
-    color: #aaa;
-    font-size: 12px;
+    color: #cccccc;
     margin-top: 10px;
+    font-size: 12px;
 }
 .topics .topic .info .node {
-    padding: 1px 5px;
-    color: #778087;
+    padding: 1px 5px;   
     text-decoration: none;
     background-color: #f5f5f5;
 }

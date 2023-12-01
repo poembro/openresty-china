@@ -3,6 +3,8 @@ local utils = require("app.libs.utils")
 local user_model = require("app.model.user")
 local topic_model = require("app.model.topic")
 local comment_model = require("app.model.comment")
+local category_model = require("app.model.category")
+
 local common_router = {}
 
 local function topics_category_handler(current_category, req, res, next)
@@ -11,6 +13,7 @@ local function topics_category_handler(current_category, req, res, next)
     local user_count = user_model:get_total_count()
     --ngx.log(ngx.ERR, "--->", res.locals.create_time)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
+	local categorys = category_model:get_all()
 
     res:render("index", {
     	diff_days = diff_days,
@@ -19,7 +22,8 @@ local function topics_category_handler(current_category, req, res, next)
         topic_count = topic_count,
         comment_count = comment_count,
 		current_category = current_category,
-		locals = res.locals
+		locals = res.locals,
+		categorys = categorys
     })
 end
 
@@ -46,15 +50,17 @@ end
 common_router.index = function(req, res, next)
 	local current_category = req.query.category or 0
     topics_category_handler(current_category, req, res, next)
-end
-
+end 
 common_router.share = function(req, res, next)
 	local current_category = 1
     topics_category_handler(current_category, req, res, next)
-end
-
+end 
 common_router.ask = function(req, res, next)
 	local current_category = 2
+     topics_category_handler(current_category, req, res, next)
+end
+common_router.code = function(req, res, next)
+	local current_category = 7
      topics_category_handler(current_category, req, res, next)
 end
 

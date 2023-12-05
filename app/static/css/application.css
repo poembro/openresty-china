@@ -842,9 +842,11 @@ img.emoji {
     vertical-align: top;
     position: relative;
 }
+  /*
 .topics .topic:last-child {
-    border-bottom: 0px;
+   border-bottom: 0px; 
 }
+*/
 .topics .topic .avatar {
     text-align: center;
 }

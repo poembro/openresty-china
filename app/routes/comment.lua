@@ -65,13 +65,34 @@ comment_router:get("/:comment_id/delete", function(req, res, next)
 
 end)
 
+local dump = function (v)
+    local __dump
+	if not __dump then
+		function __dump(v, t, p)    
+			local k = p or "";
+
+			if type(v) ~= "table" then
+				table.insert(t, k .. " : " .. tostring(v));
+			else
+				for key, value in pairs(v) do
+					__dump(value, t, k .. "[" .. key .. "]");
+				end
+			end
+		end
+	end
+
+	local t = {'======== Lib:Dump Content ========'};
+	__dump(v, t);
+	print(table.concat(t, "\n"));
+end
+
 comment_router:post("/new", function(req, res, next)
     local topic_id = req.body.topic_id
     local content = req.body.content
     local mention_users = req.body.mention_users
-    
     local user_id = res.locals.userid
-
+ 
+    
     if not user_id then
         return res:json({
             success = false,

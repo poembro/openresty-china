@@ -10,9 +10,9 @@ local View = require("lor.lib.view")
 local supported_http_methods = require("lor.lib.methods")
 
 local router_conf = {
-    strict_route = true,
-    ignore_case = true,
-    max_uri_segments = true,
+    strict_route = true, -- 严格的路由
+    ignore_case = true, -- 忽略大小写
+    max_uri_segments = true, 
     max_fallback_depth = true
 }
 

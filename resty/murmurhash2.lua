@@ -1,4 +1,5 @@
 
+-- hash 算法  将字符串 转为数字
 local ffi = require "ffi"
 local ffi_cast = ffi.cast
 local C = ffi.C

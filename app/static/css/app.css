@@ -86,11 +86,7 @@ a.btn-tiny {
     color: #fff;
 }
 
-
-/* user-index page start*/
-#relation-op-area span{ 
-}
-
+ 
 .user-index-tab-content .tab-body { 
 	margin-top: 3px; 
     color: #bbb;
@@ -126,7 +122,7 @@ a.btn-tiny {
     border-bottom:none;
 }
 
-.user-index-tab-content .pagination2{ 
+/* .user-index-tab-content .pagination2{ 
 	height: 30px;
 	padding: 0 0;
 }
@@ -138,7 +134,7 @@ a.btn-tiny {
 .user-index-tab-content .pagination2 .page-btn{
 	margin-right:0px;
 	margin-left:5px;
-}
+} */
 
 /* user-index page stop*/
 

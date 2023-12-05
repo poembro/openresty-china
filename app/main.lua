@@ -9,7 +9,9 @@ local whitelist = config.whitelist
 local view_config = config.view_config
 local upload_config = config.upload_config
 
-local app = lor()
+local app = lor({
+    debug = true
+})
 
 app:conf("view enable", true)
 app:conf("view engine", view_config.engine)
@@ -31,8 +33,6 @@ app:use(uploader_middleware({
 }))-- 文件上传开启
 app:use(check_login_middleware(whitelist))-- 登陆页面验证 与 url 白名单
  
-
-
 local common_router = require("app.routes.common")
 local auth_router = require("app.routes.auth")
 local topic_router = require("app.routes.topic")
@@ -57,18 +57,14 @@ app:use("/comments", comments_router())
 app:use("/notification", notification_router())
 app:use("/upload", upload_router())
 
-
 app:get("/", common_router.index)
 app:get("/index", common_router.index)
 app:get("/share", common_router.share)
 app:get("/ask", common_router.ask)
 app:get("/code", common_router.code)
-
 app:get("/settings", common_router.settings)
 app:get("/about", common_router.about)
 
-
- 
 -- 错误处理中间件
 app:erroruse(function(err, req, res, next)
     local hAccept = req.headers["Accept"]

@@ -85,7 +85,7 @@
 					renderTo : $("#pagebar"),
 					totalpage : totalPage,
 					totalcount : totalCount,
-					pagebarCssName : 'pagination2',
+					pagebarCssName : 'pagination2 panel-footer',
 					currentPage : currentPage,
 					onClickPage : function(pageNo) {
 						$.fn.setCurrentPage(this, pageNo);

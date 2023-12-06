@@ -1174,7 +1174,7 @@ img.emoji {
 }
 .markdown blockquote p {
     display: inline;
-    font-size: 12px;
+    font-size: 14px;
     color: #999;
 }
 .markdown blockquote:before, .markdown blockquote:after {
@@ -1189,7 +1189,7 @@ img.emoji {
 }
 .markdown pre {
     font-family: Menlo, Monaco, "Courier New", monospace;
-    font-size: 12px;
+    font-size: 14px;
     background-color: #F5F5F5;
     border: 0px;
     padding: 5px;
@@ -1201,7 +1201,7 @@ img.emoji {
     display: block;
     line-height: 150%;
     padding: 0 !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     background-color: #F5F5F5 !important;
     border: none !important;
 }

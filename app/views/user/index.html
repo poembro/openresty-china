@@ -66,9 +66,9 @@
                                             <span>取消关注</span>
                                         </a>
                                         <span>互相关注</span>
-                                    {% end%}
+                                    {% end %}
                             </div>
-                            {% end%}
+                            {% end %}
                         </div>
                     </div>
                     <div class="follow-info row">
@@ -232,17 +232,17 @@
                 {@/if}
 
                 {@if t.is_delete}
-                <del>${t.title}</del>
+                <del>此条文章已被删除</del>
                 {@/if}
 
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
                 {@/if}
                 &nbsp;&nbsp;
-                {@if is_self }
+                {% if is_self then %}
                     <a href="/topic/${t.id}/edit" class="edit-topic" style="color:#000"><i title="编辑该文章" class="fa fa-pencil"></i></a>&nbsp;
                     <a href="javascript:void(0)" class="delete-topic" data-id="${t.id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
-                {@/if}
+                {% end %}
             </div>
             <div class="info"> 
                 <span class="counter">
@@ -277,9 +277,9 @@
                     评论于 ${c.comment_time} 
                 </span>
                 &nbsp;&nbsp;
-                {@if is_self }
+                {% if is_self then %}
                     <a href="javascript:void(0)" class="delete-comment" data-id="${c.comment_id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
-                {@/if}
+                {% end %}
             </div>
             <div class="info markdown" style="color:#555;" id="reply_${c.comment_id}"> 
                    $${c.comment_content} 
@@ -304,9 +304,9 @@
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
                 {@/if}
-                {@if is_self }
+                {% if is_self then %}
                 <a href="javascript:void(0)" class="delete-collect" data-id="${t.id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
-                {@/if}
+                {% end %}
             </div>
             <div class="info"> 
                 <span class="counter">
@@ -441,9 +441,9 @@
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
                 {@/if}
-                {@if is_self }
+                {% if is_self then %}
                 <a href="javascript:void(0)" class="delete-like" data-id="${t.id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
-                {@/if}
+                {% end %}
             </div>
             <div class="info"> 
                 <span class="counter">

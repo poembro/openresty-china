@@ -55,28 +55,34 @@
                     <a href="/user/${n.username}/index">
                         ${n.username}
                     </a>
-                </span>
-
-                
+                </span> 
 
                 {@if n.type == 0}
                     <span class="info">
-                        评论了 &nbsp;
-                        <a title="${n.topic_title}" href="/topic/${n.topic_id}/view">
-                            ${n.topic_title}
-                        </a>
+                        评论了 &nbsp; 
+                        {@if !n.topic_is_delete}
+                        <a title="${n.topic_title}" href="/topic/${n.topic_id}/view"> ${n.topic_title} </a>
+                        {@/if}
+
+                        {@if n.topic_is_delete}
+                        <del> 此条文章已被删除 </del>
+                        {@/if}
                     </span>
                 {@/if}
 
                 {@if n.type == 1}
                     <span class="info">
                         在文章
-                        <a title="${n.topic_title}" href="/topic/${n.topic_id}/view">${n.topic_title}</a>
+                        {@if !n.topic_is_delete}
+                        <a title="${n.topic_title}" href="/topic/${n.topic_id}/view"> ${n.topic_title} </a>
+                        {@/if}
+
+                        {@if n.topic_is_delete}
+                        <del> 此条文章已被删除 </del>
+                        {@/if}
                         评论中提及了你：
                     </span>
-                {@/if}
-
-           
+                {@/if} 
    
                 <span class="date pull-right">
                     <i class="fa fa-clock-o">
@@ -93,12 +99,12 @@
 
             {@if n.type == 0 || n.type == 1}
                 <div class="summary markdown" id="comment-${n.comment_id}">
-                    {@if !n.comment_content}
-                        <del>此条评论已被删除</del>
-                    {@/if}
-
-                    {@if n.comment_content}
+                    {@if !n.comment_is_delete}
                         $${n.comment_content}
+                    {@/if}
+                   
+                    {@if n.comment_is_delete}
+                    <del> 此条评论已被删除 </del>
                     {@/if}
                 </div>
             {@/if}

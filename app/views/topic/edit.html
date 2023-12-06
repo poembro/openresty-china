@@ -154,11 +154,11 @@
                 APP.Common.showTipDialog("提示", "请输入标题和内容");
                 return;
             }
-
-            if(title.length>250||title.length<4 || content.length>50000 || content.length<2){
-                APP.Common.showTipDialog("提示", "标题长度须大于4小于250，内容长度须大于2小于50000");
+ 
+            if(title.length>250||title.length<4 || content.length>5000000 || content.length<2){
+                APP.Common.showTipDialog("提示", "标题长度须大于4小于250，内容长度须大于2小于5000000");
                 return;
-            } 
+            }
 
             $.ajax({
                 url : '/topic/edit',

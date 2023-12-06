@@ -44,6 +44,7 @@ end
 -- user index page start
 user_router:get("/:username/index", function(req, res, next)
     local current_userid = res.locals.userid;
+    local is_admin = res.locals.is_admin
 
     local username = req.params.username
 	if not username or username == "" then
@@ -70,12 +71,11 @@ user_router:get("/:username/index", function(req, res, next)
 
     local is_self = false 
     local relation = 0
-
-    if current_userid and current_userid ~= 0 then
-        is_self = (current_userid == user_id)    
+    if current_userid and current_userid ~= 0 and user_id ~= current_userid then
         relation = get_relation(current_userid, user_id)
     end
 
+    local is_self = (is_admin == 1) or (user_id == current_userid) or false
     res:render("user/index", {
         is_self = is_self,
         relation = relation,
@@ -87,6 +87,7 @@ user_router:get("/:username/index", function(req, res, next)
 end)
 
 user_router:get("/:username/topics", function(req, res, next)
+    local is_admin = res.locals.is_admin 
     local username = req.params.username
 	if not username or username == "" then
 		return res:json({
@@ -109,9 +110,8 @@ user_router:get("/:username/topics", function(req, res, next)
     local page_size = 20
     local total_count = topic_model:get_total_count_of_user(user.id)
     local total_page = utils.total_page(total_count, page_size)
-    local topics = topic_model:get_all_of_user(user.id, page_no, page_size)
-
-    local is_self = res.locals.userid == user.id or false
+    local topics = topic_model:get_all_of_user(user.id, page_no, page_size) 
+    local is_self = (is_admin == 1) or res.locals.userid == user.id or false
 
     res:json({
         success = true,
@@ -127,8 +127,8 @@ end)
 
 user_router:get("/:username/comments", function(req, res, next)
     local username = req.params.username
-
-
+    local is_admin = res.locals.is_admin 
+ 
     if not username or username == "" then
         return res:json({
             success = false,
@@ -151,9 +151,7 @@ user_router:get("/:username/comments", function(req, res, next)
     local total_count = comment_model:get_total_count_of_user(user.id)
     local total_page = utils.total_page(total_count, page_size)
     local comments = comment_model:get_all_of_user(user.id, page_no, page_size)
-    local is_self = res.locals.userid == user.id or false
-
-
+    local is_self = (is_admin == 1) or res.locals.userid == user.id or false
 
     res:json({
         success = true,

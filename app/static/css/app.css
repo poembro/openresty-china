@@ -78,14 +78,7 @@
 	width:140px;
 	margin:0 auto;
 }
-
-a.btn-tiny {
-	padding: 0 8px; 
-    height: 24px;
-    line-height: 24px;
-    color: #fff;
-}
-
+ 
  
 .user-index-tab-content .tab-body { 
 	margin-top: 3px; 
@@ -121,23 +114,7 @@ a.btn-tiny {
 .user-index-tab-content .list-group-item:last-child {
     border-bottom:none;
 }
-
-/* .user-index-tab-content .pagination2{ 
-	height: 30px;
-	padding: 0 0;
-}
-
-.user-index-tab-content .pagination2 div{
-	margin-right:0px;
-}
-
-.user-index-tab-content .pagination2 .page-btn{
-	margin-right:0px;
-	margin-left:5px;
-} */
-
-/* user-index page stop*/
-
+ 
 #avatar_show {
 	height:140px;
 	width:140px;

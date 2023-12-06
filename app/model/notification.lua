@@ -13,7 +13,7 @@ function notification_model:get_all(user_id, n_type, page_no, page_size)
 	end
 
 	if n_type == "all" then
-		return db:query("select n.*, u.username as from_username, u.avatar as avatar,u.username as username, t.title as topic_title, c.id as comment_id, c.content as comment_content  ".. 
+		return db:query("select n.*, u.username as from_username, u.avatar as avatar,u.username as username, t.title as topic_title,t.is_delete as topic_is_delete, c.id as comment_id, c.content as comment_content ,c.is_delete as comment_is_delete ".. 
 			" from notification n " .. 
 			" left join user u on n.from_id=u.id " ..
 			" left join topic t on n.topic_id=t.id " ..

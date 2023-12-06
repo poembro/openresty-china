@@ -73,13 +73,19 @@ function topic_model:get_all(topic_type, category, search, page_no, page_size)
 
 	local where = {}
 	local ops = {}
+	local sqlwhere = ""
+	local sqlorderby = ""
 	
 	if not topic_type or topic_type == "default" then -- 默认 
+		sqlorderby = " order by t.weight desc, t.update_time desc "
 	elseif topic_type == "recent-reply" then -- 最近回复
+		sqlorderby = " order by t.weight desc, t.last_reply_time desc "
 	elseif topic_type == "good" then -- 优质
 		table.insert(where, "t.is_good=1")
+		sqlorderby = " order by t.weight desc, t.id desc "
 	elseif topic_type == "noreply" then -- 无人问津
 		table.insert(where, "t.reply_num=0")
+		sqlorderby = " order by t.weight desc, t.id desc"
 	end
 
 	category = tonumber(category) 
@@ -94,7 +100,7 @@ function topic_model:get_all(topic_type, category, search, page_no, page_size)
 	end
 
 	table.insert(where, "t.is_delete=0")
-	local sqlwhere = concat(where, " AND ") 
+	sqlwhere = concat(where, " AND ") 
 	-- 追加分页
 	table.insert(ops, (page_no - 1) * page_size)
 	table.insert(ops, page_size)
@@ -103,7 +109,7 @@ function topic_model:get_all(topic_type, category, search, page_no, page_size)
 		" left join user u on t.user_id=u.id " ..
 		" left join category c on t.category_id=c.id " ..
 		" where " .. sqlwhere ..
-		" order by t.weight desc,t.id desc limit ?,?", ops)
+		sqlorderby .. " limit ?,?", ops)
   
 	if not res or err or type(res) ~= "table" or #res <= 0 then
 		return {}

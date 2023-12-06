@@ -12,10 +12,11 @@ topics_router:get("/all", function(req, res, next)
     local topic_type = req.query.type
     local category = req.query.category or "0"
     local page_size = page_config.index_topic_page_size
+    local search = req.query.search or "" 
 
-    local total_count = topic_model:get_total_count(topic_type, category)
+    local total_count = topic_model:get_total_count(topic_type, category, search)
     local total_page = utils.total_page(total_count, page_size)
-    local topics = topic_model:get_all(topic_type, category, page_no, page_size)
+    local topics = topic_model:get_all(topic_type, category, search, page_no, page_size)
   
     res:json({
         success = true,

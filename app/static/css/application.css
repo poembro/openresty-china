@@ -139,16 +139,11 @@ body {
     margin: 0;
 }
 
-@media (min-width: @screen-sm-min) {
-    .container{
-        width: 80%;
-    }
-}
 
 /*****************************自定义了**************************************/
 @media only screen and (max-width: 767px) {
-    .header .navbar-header {
-        /*text-align: center;
+    .header .navbar-header, .header .navbar-form {
+        /*text-align: center;   当屏幕宽度小于767px  logo图标隐藏   搜索框隐藏
         padding: 2px 0;*/
         display: none;
     }
@@ -183,6 +178,7 @@ body {
     .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
         padding: 10px 10px;
     }
+    
 }
 
 @media only screen and (min-width: 100px) and (max-width: 359px){
@@ -192,6 +188,7 @@ body {
     }
 }
 @media screen and (min-width:1200px){
+    /* 宽度在 大于1200px */
     .container{
         width: 80%;
     }
@@ -422,7 +419,7 @@ a {
     border-radius: 0px;
     border-color: #D5DCE1;
     border: 0px;
-    border-bottom: 1px solid #D5DCE1;
+    border-bottom: 2px solid #c9d5de;
     box-shadow: inset 0 0px 0px #fff !important;
     padding: 6px 0px 6px 0;
     transition: none;

@@ -14,6 +14,13 @@
               </ul>
             </span>
  
+            <form class="navbar-form navbar-left" id="main-nav-search" action="/index" method="get">
+                <div class="form-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
+                </div>
+            </form>
+        
+
             <ul class="nav user-bar navbar-nav navbar-right">
                 {%
                     if locals and locals.login and locals.login == true then

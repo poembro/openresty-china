@@ -5,7 +5,7 @@ local category_model = {}
 
  
 function category_model:get_all()
-	local res, err = db:query("select id,name from category where id > 0")
+	local res, err = db:query("select id,name from category where is_delete = 0")
  
 	if not res or err or type(res) ~= "table" or #res <= 0 then
    		return {}

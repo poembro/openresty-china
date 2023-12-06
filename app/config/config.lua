@@ -54,7 +54,8 @@ return {
 	        database = "openresty_china",
 	        user = "root",
 	        password = "NOjyVFBqlCvhWM",
-	        max_packet_size = 1024 * 1024
+			max_packet_size = 1024 * 1024,
+			charset = "utf8mb4"
 		},
 		pool_config = {
 			max_idle_timeout = 20000, -- 20s

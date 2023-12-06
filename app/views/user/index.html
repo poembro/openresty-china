@@ -227,7 +227,14 @@
         {@each topics as t}
         <li class="list-group-item" id="topic-li-${t.id}">
             <div class="title"> 
+                {@if !t.is_delete}
                 <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                {@/if}
+
+                {@if t.is_delete}
+                <del>${t.title}</del>
+                {@/if}
+
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
                 {@/if}
@@ -259,7 +266,12 @@
         {@each comments as c}
         <li class="list-group-item" id="comment-li-${c.comment_id}">
             <div class="title"> 
+                {@if !c.is_delete}
                 <a title="${c.topic_title}" href="/topic/${c.topic_id}/view">${c.topic_title}</a>
+                {@/if}
+                {@if c.is_delete}
+                <del>此条文章已被删除</del>
+                {@/if}
 
                 <span class="counter">
                     评论于 ${c.comment_time} 
@@ -280,11 +292,20 @@
 <script id="collect-item-tpl" type="text/template">
     <ul class="list-group">
         {@each topics as t}
-        <li class="list-group-item">
-            <div class="title"> 
+        <li class="list-group-item" id="collect-li-${t.id}">
+            <div class="title">  
+                {@if !t.is_delete}
                 <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                {@/if}
+                {@if t.is_delete}
+                <del>此条文章已被删除</del>
+                {@/if}
+
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
+                {@/if}
+                {@if is_self }
+                <a href="javascript:void(0)" class="delete-collect" data-id="${t.id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
                 {@/if}
             </div>
             <div class="info"> 
@@ -408,11 +429,20 @@
 <script id="like-topic-item-tpl" type="text/template">
     <ul class="list-group">
         {@each topics as t}
-        <li class="list-group-item">
+        <li class="list-group-item" id="like-li-${t.id}">
             <div class="title"> 
+                {@if !t.is_delete}
                 <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                {@/if}
+                {@if t.is_delete}
+                <del>此条文章已被删除</del>
+                {@/if}
+
                 {@if t.is_good==1 }
                     <i title="精华帖" class="fa fa-diamond"></i>
+                {@/if}
+                {@if is_self }
+                <a href="javascript:void(0)" class="delete-like" data-id="${t.id}" style="color:#FF6969"><i title="删除" class="fa fa-trash"></i></a>
                 {@/if}
             </div>
             <div class="info"> 

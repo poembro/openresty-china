@@ -173,6 +173,7 @@
 <script src="/static/js/index.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        var search = "{{search}}";
         var current_category = "{{current_category}}";
         var nav = "nav-index";
         if(current_category == "0"){
@@ -183,7 +184,7 @@
             nav = "nav-ask";
         }
         APP.Common.resetNav(nav);
-        APP.Index.init(current_category);
+        APP.Index.init(current_category, search);
     });
 </script>
 </body>

@@ -14,6 +14,7 @@ local function topics_category_handler(current_category, req, res, next)
     --ngx.log(ngx.ERR, "--->", res.locals.create_time)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
 	local categorys = category_model:get_all()
+    local search = req.query.search or "" 
 
     res:render("index", {
     	diff_days = diff_days,
@@ -23,7 +24,8 @@ local function topics_category_handler(current_category, req, res, next)
         comment_count = comment_count,
 		current_category = current_category,
 		locals = res.locals,
-		categorys = categorys
+		categorys = categorys,
+		search = search
     })
 end
 

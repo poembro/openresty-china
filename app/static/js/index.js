@@ -3,10 +3,12 @@
     L.Index = L.Index || {};
     _this = L.Index = {
         data: {
-        	current_category: "0"
+			current_category: "0",
+			search: ""
         },
  
-        init: function (current_category) {
+        init: function (current_category,search) {
+			_this.data.search = search || ""
         	_this.data.current_category = current_category || "0"
         	_this.loadTopics("default");
         	_this.initEvents();
@@ -39,6 +41,7 @@
         },
 
         loadTopics: function(type, pageNo){
+
         	pageNo = pageNo || 1;
         	$.ajax({
 	            url : '/topics/all',
@@ -47,7 +50,8 @@
 	            data: {
 	                page_no: 1,
 	                type: type,
-	                category: _this.data.current_category
+					category: _this.data.current_category,
+					search: _this.data.search
 	            },
 	            dataType : 'json',
 	            success : function(result) {
@@ -96,7 +100,8 @@
 				            data: {
 				                page_no: pageNo,
 				                type: type,
-	                			category: _this.data.current_category
+								category: _this.data.current_category,
+								search: _this.data.search 
 				            },
 							dataType : 'json',
 							success : function(result) {

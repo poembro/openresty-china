@@ -85,9 +85,10 @@
 
 
         	_this.initDeleteTopic();
-            _this.initDeleteComment();
-        	_this.initRelationOp();
-
+			_this.initDeleteComment(); 
+			_this.initDeleteCollect(); 
+			_this.initDeleteLike(); 
+        	_this.initRelationOp(); 
         },
 
         initDeleteTopic: function(){
@@ -158,8 +159,74 @@
             });
         },
 
-
- 
+        // 删除收藏  
+        initDeleteCollect: function(){
+            $(document).on("click", ".delete-collect", function(){
+				var topic_id = $(this).attr("data-id"); 
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+						$.ajax({
+							url : '/topic/cancel_collect',
+							type : 'post',
+							data : {
+								topic_id: topic_id
+							},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									$("#collect-li-"+topic_id).remove();
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除收藏请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
+            });
+        },
+        // 删除点赞
+		initDeleteLike: function(){
+            $(document).on("click", ".delete-like", function(){
+				var topic_id = $(this).attr("data-id"); 
+				var d = dialog({
+					title: '提示',
+					content: '确定要删除吗?',
+					okValue: '确定',
+					ok: function () {
+						$.ajax({
+							url : '/topic/cancel_like',
+							type : 'post',
+							data : {
+								topic_id: topic_id
+							},
+							dataType : 'json',
+							success : function(result) {
+								if(result.success){
+									$("#like-li-"+topic_id).remove();
+								}else{
+									L.Common.showTipDialog("提示", result.msg);
+								}
+							},
+							error : function() {
+								L.Common.showTipDialog("提示", "删除点赞请求发生错误");
+							}
+						});
+					},
+					cancelValue: '取消',
+					cancel: function () {}
+				});
+				d.show();
+            });
+        },
         initRelationOp:function(){
             $(document).on('click', '.follow-btn', function(){
                 //var current_relation = $(this).attr("data-relation");

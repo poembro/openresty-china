@@ -29,24 +29,7 @@
             </div>
             
 
-            {% if categorys then %}
-            <div class="panel panel-default">
-                <div class="panel-heading">更多分类</div>
-                <div class="panel-body location-list"> 
-                    <span class="name"> 
-                        <a href="/index" rel="nofollow">全部</a>
-                    </span>
-                    {% for _, v in pairs(categorys) do %}
-                    <span class="name"> 
-                        <a href="/index?category={{v.id}}" rel="nofollow">
-                        {{v.name}} 
-                        </a>
-                    </span>
-                    {% end %} 
-                </div>
-            </div>
-            {% end %}
-
+          
             <!-- 
            <div class="panel panel-default">
                 <div class="panel-heading">热门城市</div>
@@ -78,43 +61,63 @@
                 </div>
             </div>
             {% end %}
-      
 
-            <div class="panel panel-default">
-                <div class="panel-heading">友情社区</div>
-                <ul class="list-group" style="text-align:center">
-                    <li class="list-group-item">
-                        <a href="#" target="_blank" rel="nofollow">
-                            <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" rel="nofollow" title="CNode 社区" target="_blank">
-                            <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
-                            <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" target="_blank" rel="nofollow">
-                            <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
+            {% if topics and #topics > 0 then %}
             <div class="panel panel-default">
-                <div class="panel-heading">推荐资源</div>
+                <div class="panel-heading">热门推荐</div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="https://tophub.today/" target="_blank" rel="nofollow">各大平台的今日热搜榜 </a>
+                    {% for _, v in pairs(topics) do %}
+                    <li class="list-group-item">
+                        <a href="/topic/{{v.id}}/view" target="_blank" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
                     </li>
-                    <li class="list-group-item"><a href="https://www.chongbuluo.com/thread-7961-1-1.html" target="_blank"> 解锁一大波涨姿势的小众网站 </a>
-                    </li>
+                    {% end %} 
                 </ul>
             </div>
+            {% end %}
+
+
+            {% if categorys then %}
+            <div class="panel panel-default">
+                <div class="panel-heading">节点导航</div>
+                <div class="panel-body location-list">  
+                    {% for _, v in pairs(categorys) do %}
+                    <span class="label" style="font-size:100%"> 
+                        <a href="/index?category={{v.id}}" rel="nofollow">
+                        {{v.name}} 
+                        </a>
+                    </span>
+                    {% end %} 
+                </div>
+            </div>
+            {% end %}
+
+
+            <div class="panel panel-default">
+                    <div class="panel-heading">友情社区</div>
+                    <ul class="list-group" style="text-align:center">
+                        <li class="list-group-item">
+                            <a href="#" target="_blank" rel="nofollow">
+                                <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" rel="nofollow" title="CNode 社区" target="_blank">
+                                <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
+                                <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" target="_blank" rel="nofollow">
+                                <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">统计信息</div>

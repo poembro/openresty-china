@@ -14,7 +14,9 @@ local function topics_category_handler(current_category, req, res, next)
     --ngx.log(ngx.ERR, "--->", res.locals.create_time)
     local diff_days, diff = utils.days_after_registry(res.locals.create_time)
 	local categorys = category_model:get_all()
-    local search = req.query.search or "" 
+    local search = req.query.search or ""  
+	local topics = topic_model:querys()
+
 
     res:render("index", {
     	diff_days = diff_days,
@@ -25,8 +27,26 @@ local function topics_category_handler(current_category, req, res, next)
 		current_category = current_category,
 		locals = res.locals,
 		categorys = categorys,
-		search = search
+		search = search,
+		topics = topics
     })
+end
+
+common_router.index = function(req, res, next)
+	local current_category = req.query.category or 0
+    topics_category_handler(current_category, req, res, next)
+end 
+common_router.share = function(req, res, next)
+	local current_category = 1
+    topics_category_handler(current_category, req, res, next)
+end 
+common_router.ask = function(req, res, next)
+	local current_category = 2
+     topics_category_handler(current_category, req, res, next)
+end
+common_router.code = function(req, res, next)
+	local current_category = 7
+     topics_category_handler(current_category, req, res, next)
 end
 
 common_router.settings = function(req, res, next)
@@ -49,25 +69,15 @@ common_router.settings = function(req, res, next)
     })
 end
 
-common_router.index = function(req, res, next)
-	local current_category = req.query.category or 0
-    topics_category_handler(current_category, req, res, next)
-end 
-common_router.share = function(req, res, next)
-	local current_category = 1
-    topics_category_handler(current_category, req, res, next)
-end 
-common_router.ask = function(req, res, next)
-	local current_category = 2
-     topics_category_handler(current_category, req, res, next)
-end
-common_router.code = function(req, res, next)
-	local current_category = 7
-     topics_category_handler(current_category, req, res, next)
-end
+
 
 common_router.about = function(req, res, next)
     res:render("about")
+end
+
+common_router.users = function(req, res, next)
+	local users, _ = user_model:querys()
+    res:render("users", {users = users})
 end
 
 

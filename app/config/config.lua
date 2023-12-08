@@ -36,9 +36,9 @@ return {
 
 	-- 分页时每页条数配置
 	page_config = {
-		index_topic_page_size = 20, -- 首页每页文章数
+		index_topic_page_size = 15, -- 首页每页文章数
 		topic_comment_page_size = 20, -- 文章详情页每页评论数
-		notification_page_size = 20, -- 通知每页个数
+		notification_page_size = 15, -- 通知每页个数
 	}, 
 	-- ########################## 以下配置需要使用者自定义为本地需要的配置 ########################## --
  
@@ -50,7 +50,7 @@ return {
 		timeout = 5000,
 		connect_config = {
 			host = "127.0.0.1",
-	        port = 3306,
+	        port = 13306,
 	        database = "openresty_china",
 	        user = "root",
 	        password = "NOjyVFBqlCvhWM",

@@ -63,6 +63,17 @@ function topic_model:get(id)
     	" where t.id=? and t.is_delete=0", {tonumber(id)})
 end
 
+-- 最新加入成员 列表
+function topic_model:querys()
+    local res, err =  db:query("select * from topic order by view_num DESC limit 8")
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+		return {}
+	else
+		return res
+	end
+end
+
+
 
 function topic_model:get_all(topic_type, category, search, page_no, page_size)
 	page_no = tonumber(page_no)

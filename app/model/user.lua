@@ -9,6 +9,16 @@ function user_model:new(username, password, avatar)
             {username, password, avatar})
 end
 
+-- 最新加入成员 列表
+function user_model:querys()
+    local res, err =  db:query("select * from user order by create_time DESC limit 50")
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+		return {}
+	else
+		return res
+	end
+end
+
 function user_model:query_ids(usernames)
    local res, err =  db:query("select id from user where username in(" .. usernames .. ")")
    return res, err

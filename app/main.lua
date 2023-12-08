@@ -64,6 +64,8 @@ app:get("/ask", common_router.ask)
 app:get("/code", common_router.code)
 app:get("/settings", common_router.settings)
 app:get("/about", common_router.about)
+app:get("/users", common_router.users)
+
 
 -- 错误处理中间件
 app:erroruse(function(err, req, res, next)

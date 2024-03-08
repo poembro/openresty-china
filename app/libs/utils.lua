@@ -1,3 +1,4 @@
+local os = os
 local type = type
 local pairs = pairs
 local type = type
@@ -5,6 +6,7 @@ local mceil = math.ceil
 local mfloor = math.floor
 local mrandom = math.random
 local mmodf = math.modf
+local stringformat = string.format
 local sgsub = string.gsub
 local tinsert = table.insert
 local date = require("app.libs.date")
@@ -110,6 +112,55 @@ function _M.string_split(str, delimiter)
         tinsert(result, match)
     end
     return result
+end
+
+function timestamp(str)
+    local year, month, day, hour, minute, second = string.match(str, "%d-%d-%d %d:%d:%d")
+    local t = os.time({year = year, month = month, day = day, hour = hour, minute = minute, second = second})
+    return t
+end
+  
+
+
+
+function _M.time_ago(timestampStr)
+    local timestamp = date(timestampStr)
+
+    local now = date()
+    local diff = date.diff(now, timestamp):spanseconds()
+ 
+    -- 计算秒数
+    local seconds = math.floor(diff) 
+    -- 计算分钟数
+    local minutes = math.floor(seconds / 60) 
+    -- 计算小时数
+    local hours = math.floor(minutes / 60) 
+    -- 计算天数
+    local days = math.floor(hours / 24) 
+    -- 计算周数
+    local weeks = math.floor(days / 7) 
+    -- 计算月数
+    local months = math.floor(days / 30.44) 
+    -- 计算年数
+    local years = math.floor(months / 12) 
+    -- 返回结果
+    if seconds < 30 then
+      return "刚刚"
+    elseif seconds < 60 then
+      return stringformat("%d秒前", seconds)
+    elseif minutes < 60 then
+      return stringformat("%d分钟前", minutes)
+    elseif hours < 24 then
+      return stringformat("%d小时前", hours)
+    elseif days < 7 then
+      return stringformat("%d天前", days) 
+    elseif weeks < 4 then
+      return stringformat("%d周前", weeks)
+    elseif months < 12 then
+      return stringformat("%d个月前", months)
+    else
+      return stringformat("%d年前", years)
+    end
 end
 
 return _M

@@ -5,12 +5,13 @@ return {
 		"^/ask$",
 		"^/share$",
 		"^/category/[0-9]+$",
+		
 		"^/topics/all$",
 		"^/topic/[0-9]+/view$",
 		"^/topic/[0-9]+/query$",
 
 		"^/comments/all$",
-
+		"^/users$", 
 		"^/user/[0-9a-zA-Z-_]+/index$",
 		"^/user/[0-9a-zA-z-_]+/topics$",
 		"^/user/[0-9a-zA-z-_]+/collects$",

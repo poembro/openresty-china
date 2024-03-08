@@ -17,7 +17,18 @@ topics_router:get("/all", function(req, res, next)
     local total_count = topic_model:get_total_count(topic_type, category, search)
     local total_page = utils.total_page(total_count, page_size)
     local topics = topic_model:get_all(topic_type, category, search, page_no, page_size)
-  
+   
+    -- 转义时间描述
+    for k, v in pairs(topics) do 
+        if v.create_time ~= "" then
+            topics[k].create_time = utils.time_ago(v.create_time)
+        end
+
+        if v.last_reply_time ~= "" then
+            topics[k].last_reply_time = utils.time_ago(v.last_reply_time)
+        end 
+    end
+
     res:json({
         success = true,
         data = {

@@ -112,7 +112,16 @@ user_router:get("/:username/topics", function(req, res, next)
     local total_page = utils.total_page(total_count, page_size)
     local topics = topic_model:get_all_of_user(user.id, page_no, page_size) 
     local is_self = (is_admin == 1) or res.locals.userid == user.id or false
+    -- 转义时间描述
+    for k, v in pairs(topics) do 
+        if v.create_time ~= "" then
+            topics[k].create_time = utils.time_ago(v.create_time)
+        end
 
+        if v.last_reply_time ~= "" then
+            topics[k].last_reply_time = utils.time_ago(v.last_reply_time)
+        end 
+    end
     res:json({
         success = true,
         data = {
@@ -190,7 +199,16 @@ user_router:get("/:username/collects", function(req, res, next)
     local total_count = collect_model:get_total_count_of_user(user.id)
     local total_page = utils.total_page(total_count, page_size)
     local topics = collect_model:get_all_of_user(user.id, page_no, page_size)
+    -- 转义时间描述
+    for k, v in pairs(topics) do 
+        if v.create_time ~= "" then
+            topics[k].create_time = utils.time_ago(v.create_time)
+        end
 
+        if v.last_reply_time ~= "" then
+            topics[k].last_reply_time = utils.time_ago(v.last_reply_time)
+        end 
+    end
     res:json({
         success = true,
         data = {
@@ -299,6 +317,17 @@ user_router:get("/:username/hot_topics", function(req, res, next)
     local total_page = utils.total_page(total_count, page_size)
     local topics = topic_model:get_all_hot_of_user(user.id, page_no, page_size)
 
+    -- 转义时间描述
+    for k, v in pairs(topics) do 
+        if v.create_time ~= "" then
+            topics[k].create_time = utils.time_ago(v.create_time)
+        end
+
+        if v.last_reply_time ~= "" then
+            topics[k].last_reply_time = utils.time_ago(v.last_reply_time)
+        end 
+    end
+
     res:json({
         success = true,
         data = {
@@ -334,7 +363,16 @@ user_router:get("/:username/like_topics", function(req, res, next)
     local total_count = topic_model:get_total_like_count_of_user(user.id)
     local total_page = utils.total_page(total_count, page_size)
     local topics = topic_model:get_all_like_of_user(user.id, page_no, page_size)
+    -- 转义时间描述
+    for k, v in pairs(topics) do 
+        if v.create_time ~= "" then
+            topics[k].create_time = utils.time_ago(v.create_time)
+        end
 
+        if v.last_reply_time ~= "" then
+            topics[k].last_reply_time = utils.time_ago(v.last_reply_time)
+        end 
+    end
     res:json({
         success = true,
         data = {

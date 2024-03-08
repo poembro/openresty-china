@@ -13,8 +13,7 @@ local date = require("app.libs.date")
 local resty_sha256 = require "resty.sha256"
 local str = require "resty.string"
 local ngx_quote_sql_str = ngx.quote_sql_str
-
-   
+local mail = require "resty.mail"
 
 local _M = {}
 
@@ -113,22 +112,11 @@ function _M.string_split(str, delimiter)
     end
     return result
 end
-
-function timestamp(str)
-    local year, month, day, hour, minute, second = string.match(str, "%d-%d-%d %d:%d:%d")
-    local t = os.time({year = year, month = month, day = day, hour = hour, minute = minute, second = second})
-    return t
-end
-  
-
-
-
+ 
 function _M.time_ago(timestampStr)
     local timestamp = date(timestampStr)
-
     local now = date()
     local diff = date.diff(now, timestamp):spanseconds()
- 
     -- 计算秒数
     local seconds = math.floor(diff) 
     -- 计算分钟数
@@ -160,6 +148,45 @@ function _M.time_ago(timestampStr)
       return stringformat("%d个月前", months)
     else
       return stringformat("%d年前", years)
+    end
+end
+
+
+--  utils.send_mail("fsdfds@qq.com")   
+
+function _M.send_mail(account) 
+    local mailer, err = mail.new({
+        host = "smtp.gmail.com",
+        port = 587,
+        starttls = true,
+        username = "xxxxxx@gmail.com",
+        password = "uzvs hnjz",
+        auth_type = "login"
+    })
+    if err then
+        ngx.log(ngx.ERR, "mail.new error: ", err)
+        return ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)
+    end
+      
+    local ok, err = mailer:send({
+        from = "xxxxxx@gmail.com",
+        to = { account },
+        -- cc = { "leo@example.com", "Raphael <raph@example.com>", "donatello@example.com" },
+        subject = "Pizza is here!",
+        text = "There's pizza in the sewer.",
+        -- html = "<h1>There's pizza in the sewer.</h1>",
+        --[[ attachments = {
+          {
+            filename = "toppings.txt",
+            content_type = "text/plain",
+            content = "1. Cheese\n2. Pepperoni",
+          },
+        },
+        ]]
+    })
+    if err then
+        ngx.log(ngx.ERR, "mailer:send error: ", err)
+        return ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)
     end
 end
 

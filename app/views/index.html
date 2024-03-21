@@ -69,7 +69,7 @@
                 <ul class="list-group">
                     {% for _, v in pairs(topics) do %}
                     <li class="list-group-item">
-                        <a href="/topic/{{v.id}}/view" target="_blank" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
+                        <a class="topic-link" href="/topic/{{v.id}}/view#{{v.reply_num}}" target="_blank" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
                     </li>
                     {% end %} 
                 </ul>
@@ -144,7 +144,7 @@
             </div>
             <div class="infos media-body">
                 <div class="title media-heading"> 
-                    <a title="${t.title}" href="/topic/${t.id}/view">${t.title}</a>
+                    <a class="topic-link" title="${t.title}" href="/topic/${t.id}/view#reply${t.reply_num}">${t.title}</a>
                     {@if t.weight > 0 }
                         <i class="fa fa-thumb-tack" title="置顶"></i>
                     {@/if}

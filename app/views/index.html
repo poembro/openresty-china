@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>社区</title>
+  <title>博客</title>
   {(meta.html)}
 </head>
 <body data-controller-name="topics">
@@ -15,7 +15,7 @@
                 <div class="panel-heading clearfix">
 
                     <div class="filter pull-right" id="topic-type-tab"> 
-                        <span class="l">查看:</span>
+                        <span class="l">查看主题方式:</span>
                         <a id="default-topics-btn" href="javascript:void(0);" class="active">默认</a> / 
                         <a id="recent-reply-topics-btn" href="javascript:void(0);">最近回复</a> / 
                         <a id="good-topics-btn" href="javascript:void(0);" class="popular"><i class="fa fa-diamond"></i> 优质帖子</a> / 
@@ -48,7 +48,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">新手必读</div>
                 <div class="panel-body">
-                    <p>为提高社区质量,保持良好氛围,本站有自己的明确规则：</p>
+                    <p>为提高博客质量,保持良好氛围,本站有自己的明确规则：</p>
                     <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px;"> 
                         <li>1.不讨论任何有关政治的话题</li> 
                         <li>2.这里感激和崇尚美的事物</li>
@@ -56,7 +56,7 @@
                         <li>4.禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴”</li> 
                         <li>5.当你在网上发帖时,请考虑到你所做的一切,会受到你所在地区法律的管辖</li> 
                     </ul>
-                    <p>请在新人阶段多浏览,看看其他老用户是如何在社区里面分享与解决问题的。</p>
+                    <p>请在新人阶段多浏览,看看其他老用户是如何在博客里面分享与解决问题的。</p>
                     <p>{% if locals and locals.create_time then%} <strong>您注册于{{locals.create_time}}</strong> {% end %} </p>
                 </div>
             </div>
@@ -65,11 +65,11 @@
 
             {% if topics and #topics > 0 then %}
             <div class="panel panel-default">
-                <div class="panel-heading">热门推荐</div>
+                <div class="panel-heading">今日热议主题</div>
                 <ul class="list-group">
                     {% for _, v in pairs(topics) do %}
                     <li class="list-group-item">
-                        <a class="topic-link" href="/topic/{{v.id}}/view#{{v.reply_num}}" target="_blank" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
+                        <a class="topic-link" href="/topic/{{v.id}}/view#{{v.reply_num}}" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
                     </li>
                     {% end %} 
                 </ul>
@@ -92,37 +92,37 @@
             </div>
             {% end %}
 
-
+            <!-- 
             <div class="panel panel-default">
-                    <div class="panel-heading">友情社区</div>
-                    <ul class="list-group" style="text-align:center">
-                        <li class="list-group-item">
-                            <a href="#" target="_blank" rel="nofollow">
-                                <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#" rel="nofollow" title="CNode 社区" target="_blank">
-                                <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
-                                <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#" target="_blank" rel="nofollow">
-                                <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
+                <div class="panel-heading">友情博客</div>
+                <ul class="list-group" style="text-align:center">
+                    <li class="list-group-item">
+                        <a href="#" target="_blank" rel="nofollow">
+                            <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" rel="nofollow" title="CNode 博客" target="_blank">
+                            <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
+                            <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" target="_blank" rel="nofollow">
+                            <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            -->
             <div class="panel panel-default">
                 <div class="panel-heading">统计信息</div>
                 <ul class="list-group">
-                    <li class="list-group-item">社区会员: {{user_count}} 人</li>
+                    <li class="list-group-item">博客会员: {{user_count}} 人</li>
                     <li class="list-group-item">文章数: {{topic_count}} 个</li>
                     <li class="list-group-item">评论数: {{comment_count}} 条</li>
                 </ul>

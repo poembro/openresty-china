@@ -69,24 +69,23 @@ auth_router:post("/sign_up", function(req, res, next)
             success = false,
             msg = "用户名已被占用，请修改."
         })
-    end
-
-    password = utils.encode(password .. "#" .. pwd_secret)
-    local avatar = ssub(username, 1, 1) .. ".png" --取首字母作为默认头像名
-    avatar = slower(avatar)
-    local result, err = user_model:new(username, password, avatar)
-    if result and not err then
-        return res:json({
-            success = true,
-            msg = "注册成功."
-        })  
     else
-        return res:json({
-            success = false,
-            msg = "注册失败."
-        }) 
+        password = utils.encode(password .. "#" .. pwd_secret)
+        local avatar = ssub(username, 1, 1) .. ".png" --取首字母作为默认头像名
+        avatar = slower(avatar)
+        local result, err = user_model:new(username, password, avatar)
+        if result and not err then
+            return res:json({
+                success = true,
+                msg = "注册成功."
+            })  
+        else
+            return res:json({
+                success = false,
+                msg = "注册失败."
+            }) 
+        end
     end
-    
 end)
 
 local jwt = require("app.libs.jwt")

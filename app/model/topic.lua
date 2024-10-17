@@ -65,7 +65,7 @@ end
 
 -- 最新加入成员 列表
 function topic_model:querys()
-    local res, err =  db:query("select * from topic order by view_num DESC limit 8")
+    local res, err =  db:query("select * from topic order by last_reply_time DESC limit 8")
     if not res or err or type(res) ~= "table" or #res <= 0 then
 		return {}
 	else
@@ -116,7 +116,7 @@ function topic_model:get_all(topic_type, category, search, page_no, page_size)
 	table.insert(ops, (page_no - 1) * page_size)
 	table.insert(ops, page_size)
 
-	local res, err = db:query("select t.*, c.name as category_name, u.avatar as avatar from topic t " .. 
+	local res, err = db:query("select t.id,t.title,t.user_id,t.user_name,t.like_num,t.collect_num,t.reply_num,t.follow,t.view_num,t.last_reply_id,t.last_reply_name,t.category_id,t.is_good,t.weight,t.last_reply_time,t.update_time,t.create_time,t.is_delete, c.name as category_name, u.avatar as avatar from topic t " .. 
 		" left join user u on t.user_id=u.id " ..
 		" left join category c on t.category_id=c.id " ..
 		" where " .. sqlwhere ..

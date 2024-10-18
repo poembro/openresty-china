@@ -41,10 +41,12 @@
 					return ;
 				}
 //				_this.totalpage = 12;
+				$('<div style="float:right;">总&nbsp;'+_this.totalpage+'页&nbsp;,&nbsp;'+_this.totalcount+'&nbsp;条记录</div>').appendTo(render_to);
+
 				render_to.append('<div style="float:right;"></div>');
 				render_to = render_to.find('div');
 				
-				$('<div>总&nbsp;'+_this.totalpage+'页&nbsp;,&nbsp;'+_this.totalcount+'&nbsp;条记录</div>').appendTo(render_to);
+				// $('<div>总&nbsp;'+_this.totalpage+'页&nbsp;,&nbsp;'+_this.totalcount+'&nbsp;条记录</div>').appendTo(render_to);
 				var pagebar = $('<ul></ul>');
 				pagebar.appendTo(render_to);
 

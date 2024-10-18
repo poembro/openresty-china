@@ -10,10 +10,11 @@ function collect_model:get_all_of_user(user_id, page_no, page_size)
 	if page_no < 1 then 
 		page_no = 1
 	end
-	local res, err = db:query("select t.*, u.avatar as avatar, cc.name as category_name from collect c" ..
+	local res, err = db:query("select t.id,t.title,t.user_id,t.user_name,t.like_num,t.collect_num,t.reply_num,t.follow,t.view_num,t.last_reply_id,t.last_reply_name,t.category_id,t.is_good,t.weight,t.last_reply_time,t.update_time,t.create_time," .. 
+	   " u.avatar as avatar, cc.name as category_name from collect c" ..
 		" right join topic t on c.topic_id=t.id" ..
 		" left join user u on t.user_id=u.id" ..
-      " left join category cc on t.category_id=cc.id " ..
+        " left join category cc on t.category_id=cc.id " ..
 		" where c.user_id=? order by c.id desc limit ?,?",
 		{tonumber(user_id), (page_no - 1) * page_size, page_size})
 

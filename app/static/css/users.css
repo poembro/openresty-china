@@ -33,12 +33,21 @@
 .sidebar .profile .counts span {
     color: #666;
 }
+
+
 .sidebar .profile .follow-info {
     border-top: 1px solid #f0f0f0;
     text-align: center;
     margin-top: 15px;
     padding-top: 15px;
 }
+
+@media only screen and (max-width: 767px) {
+    .sidebar .profile .follow-info {
+        display: none; /*text-align: center;   当屏幕宽度小于767px  关注人数隐藏  */
+    }
+}
+
 .sidebar .profile .follow-info a {
     display: block;
     text-decoration: none;

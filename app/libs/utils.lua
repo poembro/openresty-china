@@ -21,7 +21,7 @@ function _M.encode(s)
     local sha256 = resty_sha256:new()
     sha256:update(s)
     local digest = sha256:final()
-    return str.to_hex(digest)
+    return str.str_to_hex(digest)
 end
 
 

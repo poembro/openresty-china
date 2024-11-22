@@ -1,6 +1,4 @@
--- https://github.com/cloudflare/lua-resty-cookie/blob/master/lib/resty/cookie.lua
-
--- Copyright (C) 2013 Jiale Zhi (calio), Cloudflare Inc.
+-- Copyright (C) 2013-2016 Jiale Zhi (calio), CloudFlare Inc.
 -- See RFC6265 http://tools.ietf.org/search/rfc6265
 -- require "luacov"
 
@@ -10,6 +8,7 @@ local sub           = string.sub
 local format        = string.format
 local log           = ngx.log
 local ERR           = ngx.ERR
+local WARN          = ngx.WARN
 local ngx_header    = ngx.header
 
 local EQUAL         = byte("=")
@@ -36,7 +35,7 @@ _M._VERSION = '0.01'
 local function get_cookie_table(text_cookie)
     if type(text_cookie) ~= "string" then
         log(ERR, format("expect text_cookie to be \"string\" but found %s",
-            type(text_cookie)))
+                type(text_cookie)))
         return {}
     end
 
@@ -81,7 +80,7 @@ local function get_cookie_table(text_cookie)
             end
         elseif state == EXPECT_SP then
             if byte(text_cookie, j) ~= SPACE
-                    and byte(text_cookie, j) ~= HTAB
+                and byte(text_cookie, j) ~= HTAB
             then
                 state = EXPECT_KEY
                 i = j
@@ -101,7 +100,7 @@ end
 function _M.new(self)
     local _cookie = ngx.var.http_cookie
     --if not _cookie then
-    --return nil, "no cookie found in current request"
+        --return nil, "no cookie found in current request"
     --end
     return setmetatable({ _cookie = _cookie, set_cookie_table = new_tab(4, 0) },
         { __index = self })
@@ -138,14 +137,26 @@ local function bake(cookie)
     if cookie["max-age"] then
         cookie.max_age = cookie["max-age"]
     end
+
+    if (cookie.samesite) then
+        local samesite = cookie.samesite
+
+        -- if we dont have a valid-looking attribute, ignore the attribute
+        if (samesite ~= "Strict" and samesite ~= "Lax") then
+            log(WARN, "SameSite value must be 'Strict' or 'Lax'")
+            cookie.samesite = nil
+        end
+    end
+
     local str = cookie.key .. "=" .. cookie.value
-            .. (cookie.expires and "; Expires=" .. cookie.expires or "")
-            .. (cookie.max_age and "; Max-Age=" .. cookie.max_age or "")
-            .. (cookie.domain and "; Domain=" .. cookie.domain or "")
-            .. (cookie.path and "; Path=" .. cookie.path or "")
-            .. (cookie.secure and "; Secure" or "")
-            .. (cookie.httponly and "; HttpOnly" or "")
-            .. (cookie.extension and "; " .. cookie.extension or "")
+        .. (cookie.expires and "; Expires=" .. cookie.expires or "")
+        .. (cookie.max_age and "; Max-Age=" .. cookie.max_age or "")
+        .. (cookie.domain and "; Domain=" .. cookie.domain or "")
+        .. (cookie.path and "; Path=" .. cookie.path or "")
+        .. (cookie.secure and "; Secure" or "")
+        .. (cookie.httponly and "; HttpOnly" or "")
+        .. (cookie.samesite and "; SameSite=" .. cookie.samesite or "")
+        .. (cookie.extension and "; " .. cookie.extension or "")
     return str
 end
 

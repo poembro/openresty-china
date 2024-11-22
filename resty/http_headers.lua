@@ -1,10 +1,11 @@
+--- forked by https://raw.githubusercontent.com/pintsized/lua-resty-http/master/lib/resty/http_headers.lua
 local rawget, rawset, setmetatable =
     rawget, rawset, setmetatable
 
 local str_lower = string.lower
 
 local _M = {
-    _VERSION = '0.12',
+    _VERSION = '0.11',
 }
 
 

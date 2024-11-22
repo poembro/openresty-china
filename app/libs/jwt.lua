@@ -1,6 +1,6 @@
 local pwd_secret = "lua-resty-jwt"
 local jwt = require "resty.jwt"
-
+-- local cjson = require "cjson"
 local _M = {} 
 
 
@@ -10,6 +10,8 @@ function _M:decode(jwt_token)
     end
 
     local jwt_obj = jwt:verify(pwd_secret, jwt_token)  
+     
+    -- ngx.log(ngx.ERR, " --------  :", cjson.encode(jwt_obj))
     return jwt_obj.payload
 end
 
@@ -17,8 +19,8 @@ function _M:encode(user_id, nickname, is_admin ,create_time)
     local jwt_token = jwt:sign(
         pwd_secret,
         {
-            header = {typ="JWT", alg="HS256"},
-            payload = {userid = user_id, username = nickname, is_admin = is_admin, create_time = create_time or ""}
+            header={typ="JWT", alg="HS256"},
+            payload = {userid = user_id, username = nickname, is_admin = is_admin, create_time = create_time }
         }
     )
     return jwt_token

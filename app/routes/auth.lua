@@ -99,11 +99,11 @@ auth_router:post("/login", function(req, res, next)
             msg = "用户名和密码不得为空."
         })
     end
-
+ 
     local isExist = false
     local userid = 0
-
     password = utils.encode(password .. "#" .. pwd_secret)
+    ngx.log(ngx.ERR, " -------- 1 :   ", password) 
     local result, err = user_model:query(username, password)
 
     local user = {}

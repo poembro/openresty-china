@@ -1,4 +1,5 @@
 local DB = require("app.libs.db")
+local dict = require("app.libs.dict")
 local db = DB:new()
 
 local comment_model = {}
@@ -93,31 +94,54 @@ function comment_model:get_all_of_user(user_id, page_no, page_size)
 	end
 end
 
-function comment_model:get_total_count_of_user(user_id)
-	local res, err = db:query("select count(c.id) as comment_count from comment c " .. 
+function comment_model:get_total_count_of_user222(user_id)
+	local res, err = db:query("select count(c.id) as c from comment c " .. 
 		" right join topic t on c.topic_id=t.id" .. 
 		" where c.user_id=? and c.is_delete=0 ", {tonumber(user_id)})
-
-
-	if err or not res or #res~=1 or not res[1].comment_count then
+	if err or not res or #res~=1 or not res[1].c then
    		return 0
    	else
-   		return res[1].comment_count
+   		return res[1].c
+   	end
+end
+
+function comment_model:get_total_count_of_user(user_id)
+	local cache_key = string.format("dict:comment_total_count:u:%d",tonumber(user_id))
+	local res, err = dict:get_or_load(cache_key, function() 
+		return  db:query("select count(c.id) as c from comment c " .. 
+		" right join topic t on c.topic_id=t.id" .. 
+		" where c.user_id=? and c.is_delete=0 ", {tonumber(user_id)})
+	end, 300)
+
+	if err or not res or #res~=1 or not res[1].c then
+   		return 0
+   	else
+   		return res[1].c
+   	end
+end
+
+function comment_model:get_total_count22222()
+	local res, err = db:query("select count(c.id) as c from comment  where  is_delete=0")
+	if err or not res or #res~=1 or not res[1].c then
+   		return 0
+   	else
+   		return res[1].c
    	end
 end
 
 function comment_model:get_total_count()
-	local res, err = db:query("select count(c.id) as comment_count from comment c where  is_delete=0")
-
-
-	if err or not res or #res~=1 or not res[1].comment_count then
+	-- 查询缓存或数据库中是否包含指定信息
+	local cache_key = string.format("dict:comment_total_count")
+	local res, err = dict:get_or_load(cache_key, function() 
+		return db:query("select count(id) as c from comment where  is_delete=0")
+	end, 1800)
+ 
+	if err or not res or #res~=1 or not res[1].c then
    		return 0
    	else
-   		return res[1].comment_count
+   		return res[1].c
    	end
 end
-
-
 
 
 function comment_model:get_total_count_of_topic(topic_id)
@@ -159,7 +183,7 @@ function comment_model:get_all_of_topic(topic_id, page_no, page_size)
 end
 
 function comment_model:reset_topic_comment_num(topic_id)
-	db:query("update topic set reply_num=(select count(id) from comment where topic_id=?) where id=?", 
+	db:query("update topic set reply_num=(select count(id) from comment where topic_id=? and is_delete=1) where id=?", 
 		{tonumber(topic_id), tonumber(topic_id)})
 end
 

@@ -1,10 +1,20 @@
 local DB = require("app.libs.db")
+local dict = require("app.libs.dict")
 local db = DB:new()
 
 local notification_model = {}
 
-
 function notification_model:get_all(user_id, n_type, page_no, page_size)
+	local cache_key = string.format("dict:notification:get_all:%s:%s:%s:%s", user_id, n_type, page_no, page_size)
+	local res, err = dict:get_or_load(cache_key, function() 
+		return notification_model:_get_all(user_id, n_type, page_no, page_size)
+	end, 60)
+ 
+    return res, err 
+end
+
+
+function notification_model:_get_all(user_id, n_type, page_no, page_size)
 	user_id = tonumber(user_id)
 	page_no = tonumber(page_no)
 	page_size = tonumber(page_size)

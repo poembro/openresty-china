@@ -50,11 +50,11 @@ return {
 	mysql = {
 		timeout = 5000,
 		connect_config = {
-			host = "127.0.0.1",
-	        port = 13306,
+			host = "192.168.1.1",
+	        port = 3306,
 	        database = "openresty_china",
 	        user = "root",
-	        password = "NOjyVFBqlCvhWM",
+	        password = "123456",
 			max_packet_size = 1024 * 1024,
 			charset = "utf8mb4"
 		},

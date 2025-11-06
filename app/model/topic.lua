@@ -1,5 +1,6 @@
 local concat = table.concat 
 local utils = require("app.libs.utils")
+local dict = require("app.libs.dict")
 local DB = require("app.libs.db")
 local db = DB:new()
 
@@ -21,6 +22,7 @@ function topic_model:delete(user_id, topic_id)
 end
 
 function topic_model:new(title, content, user_id, user_name, category_id)
+    
     local now = utils.now()
     return db:query("insert into topic(title, content, user_id, user_name, category_id, update_time,create_time) values(?,?,?,?,?,?,?)",
             {title, content, tonumber(user_id), user_name, tonumber(category_id), now, now})
@@ -63,8 +65,8 @@ function topic_model:get(id)
         " where t.id=? and t.is_delete=0", {tonumber(id)})
 end
 
--- 最新加入成员 列表
-function topic_model:querys()
+ 
+function topic_model:querys222()
     local res, err =  db:query("select * from topic order by last_reply_time DESC limit 8")
     if not res or err or type(res) ~= "table" or #res <= 0 then
         return {}
@@ -73,9 +75,29 @@ function topic_model:querys()
     end
 end
 
-
+function topic_model:querys()
+	local cache_key = string.format("dict:topic_last_reply_querys")
+	local res, err = dict:get_or_load(cache_key, function() 
+		return db:query("select * from topic where is_delete=0 order by last_reply_time DESC limit 8")
+	end, 1800)
+ 
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+        return {}
+    else
+        return res
+    end
+end
 
 function topic_model:get_all(topic_type, category, search, page_no, page_size)
+	local cache_key = string.format("dict:topic:get_all:%s:%s:%s:%s:%s", topic_type, category, search, page_no, page_size)
+	local res, err = dict:get_or_load(cache_key, function() 
+		return topic_model:_get_all(topic_type, category, search, page_no, page_size)
+	end, 60)
+ 
+    return res, err 
+end
+
+function topic_model:_get_all(topic_type, category, search, page_no, page_size)
     page_no = tonumber(page_no)
     page_size = tonumber(page_size)
      if page_no < 1 then 
@@ -164,7 +186,7 @@ function topic_model:get_total_count(topic_type, category, search)
        end
 end
 
-function topic_model:get_all_count()
+function topic_model:get_all_count222()
     local res, err = db:query("select count(id) as c from topic where is_delete=0")
 
     if err or not res or #res~=1 or not res[1].c then
@@ -173,6 +195,23 @@ function topic_model:get_all_count()
            return res[1].c
        end
 end
+
+
+function topic_model:get_all_count()
+	-- 查询缓存或数据库中是否包含指定信息
+	local cache_key = string.format("dict:topic_get_all_count")
+	local res, err = dict:get_or_load(cache_key, function() 
+		return db:query("select count(id) as c from topic where is_delete=0")
+	end, 1800)
+ 
+	if err or not res or #res~=1 or not res[1].c then
+   		return 0
+   	else
+   		return res[1].c
+   	end
+end
+
+
 
 function topic_model:get_all_of_user(user_id, page_no, page_size)
     page_no = tonumber(page_no)

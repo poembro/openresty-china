@@ -1,4 +1,6 @@
 local DB = require("app.libs.db")
+local dict = require("app.libs.dict")
+
 local db = DB:new()
 
 local user_model = {}
@@ -73,7 +75,7 @@ function user_model:update(userid, email, email_public, city, company, github, w
     end
 end
 
-function user_model:get_total_count()
+function user_model:get_total_count222()
     local res, err = db:query("select count(id) as c from user")
 
     if err or not res or #res~=1 or not res[1].c then
@@ -81,6 +83,21 @@ function user_model:get_total_count()
     else
         return res[1].c
     end
+end
+
+
+function user_model:get_total_count()
+	-- 查询缓存或数据库中是否包含指定信息
+	local cache_key = string.format("dict:user_get_all_count")
+	local res, err = dict:get_or_load(cache_key, function() 
+		return db:query("select count(id) as c from user where is_delete=0")
+	end, 1800)
+ 
+	if err or not res or #res~=1 or not res[1].c then
+   		return 0
+   	else
+   		return res[1].c
+   	end
 end
 
 

@@ -2,6 +2,16 @@
 一个运行在[OpenResty](http://openresty.org)上的发帖论坛。
 
 
+docker image build -t openresty-china:3.0.0 .
+
+docker save -o openresty-china.tar.gz openresty-china:3.0.0
+
+scp openresty-china.tar.gz root@192.168.1.1:/mnt/mmcblk0p7/docker/
+
+docker load --input openresty-china.tar.gz
+
+docker run -p 18080:18080 -d --name openresty-china  -v /mnt/mmcblk0p7/docker/volumes/new_nginx_data/_data/nginx/log/:/data/log openresty-china:3.0.0
+
 ---
 
 ## 特点

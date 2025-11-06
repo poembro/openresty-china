@@ -33,7 +33,7 @@ app:use(uploader_middleware({
 }))-- 文件上传开启
 app:use(check_login_middleware(whitelist))-- 登陆页面验证 与 url 白名单
  
-local common_router = require("app.routes.common")
+local index_router = require("app.routes.index")
 local auth_router = require("app.routes.auth")
 local topic_router = require("app.routes.topic")
 local topics_router = require("app.routes.topics")
@@ -57,14 +57,14 @@ app:use("/comments", comments_router())
 app:use("/notification", notification_router())
 app:use("/upload", upload_router())
 
-app:get("/", common_router.index)
-app:get("/index", common_router.index)
-app:get("/share", common_router.share)
-app:get("/ask", common_router.ask)
-app:get("/code", common_router.code)
-app:get("/settings", common_router.settings)
-app:get("/about", common_router.about)
-app:get("/users", common_router.users)
+app:get("/", index_router.index)
+app:get("/index", index_router.index)
+app:get("/share", index_router.share)
+app:get("/ask", index_router.ask)
+app:get("/code", index_router.code)
+app:get("/settings", index_router.settings)
+app:get("/about", index_router.about)
+app:get("/users", index_router.users)
 
 
 -- 错误处理中间件

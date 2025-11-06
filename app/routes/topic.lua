@@ -92,6 +92,11 @@ topic_router:get("/:topic_id/query", function(req, res, next)
         local user_id = res.locals.userid
         local is_admin = res.locals.is_admin
         local is_self = is_admin == 1 or user_id == topic.user_id or false
+
+        -- 转义时间描述 
+        topic.create_time = utils.time_ago(topic.create_time)
+        -- topic.update_time = utils.time_ago(topic.update_time)
+        topic.last_reply_time = utils.time_ago(topic.last_reply_time)
         res:json({
             success = true,
             data = {

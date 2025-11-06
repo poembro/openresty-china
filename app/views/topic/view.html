@@ -175,13 +175,14 @@
                     ${topic.create_time}
                 </abbr>
                 发布
+                <!-- 
                 {@if topic.update_time && topic.update_time!="0000-00-00 00:00:00" }
                     ·
                     <abbr class="timeago" title="${topic.create_time}">
                         ${topic.update_time} 更新
                     </abbr>
                 {@/if}
-
+                -->
                  {@if topic.last_reply_id!=0 }
                     · 最后由
                     <a data-name="shawnqi" href="/user/${topic.last_reply_name}/index">

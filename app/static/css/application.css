@@ -94,7 +94,7 @@ body {
     color: #EB5424;
 }
 .header .navbar-default .navbar-brand, .header .navbar-default .navbar-nav > li > a {
-    color: #000000;
+    color: #111;
     /*border-bottom: 3px solid #FFF;*/
     padding-bottom: 12px;
 }
@@ -796,6 +796,7 @@ img.emoji {
 }
 .topics .filter a.active {
     color: #000000;
+    font-weight: bold;
     border-bottom: 1px dotted #ccc;
     text-decoration: none;
 }

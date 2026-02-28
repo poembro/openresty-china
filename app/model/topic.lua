@@ -77,24 +77,24 @@ end
 
 function topic_model:querys()
 	local cache_key = string.format("dict:topic_last_reply_querys")
-	local res, err = dict:get_or_load(cache_key, function() 
+	local res, err = dict:get_or_load(cache_key, function()
 		return db:query("select * from topic where is_delete=0 order by last_reply_time DESC limit 8")
-	end, 1800)
- 
-    if not res or err or type(res) ~= "table" or #res <= 0 then
-        return {}
-    else
-        return res
-    end
+	end, 60) -- 缓存60秒，最近回复列表需要及时更新
+
+	if not res or err or type(res) ~= "table" or #res <= 0 then
+		return {}
+	else
+		return res
+	end
 end
 
 function topic_model:get_all(topic_type, category, search, page_no, page_size)
 	local cache_key = string.format("dict:topic:get_all:%s:%s:%s:%s:%s", topic_type, category, search, page_no, page_size)
-	local res, err = dict:get_or_load(cache_key, function() 
+	local res, err = dict:get_or_load(cache_key, function()
 		return topic_model:_get_all(topic_type, category, search, page_no, page_size)
-	end, 60)
- 
-    return res, err 
+	end, 10) -- 减少缓存时间到10秒，让评论数更快更新
+
+    return res, err
 end
 
 function topic_model:_get_all(topic_type, category, search, page_no, page_size)
@@ -200,10 +200,10 @@ end
 function topic_model:get_all_count()
 	-- 查询缓存或数据库中是否包含指定信息
 	local cache_key = string.format("dict:topic_get_all_count")
-	local res, err = dict:get_or_load(cache_key, function() 
+	local res, err = dict:get_or_load(cache_key, function()
 		return db:query("select count(id) as c from topic where is_delete=0")
-	end, 1800)
- 
+	end, 120) -- 缓存120秒，总数统计不需要太频繁
+
 	if err or not res or #res~=1 or not res[1].c then
    		return 0
    	else

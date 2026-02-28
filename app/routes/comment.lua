@@ -141,17 +141,16 @@ comment_router:post("/new", function(req, res, next)
             local clean_mus = {}
             for i,v in ipairs(mus) do
                 if v and v~="" then
-                    tinsert(clean_mus, utils.secure_str(v))
+                    -- 参数化查询会自动转义，不需要 secure_str
+                    tinsert(clean_mus, v)
                 end
             end
             if clean_mus and #clean_mus>0 then
-                local usernames = tconcat(clean_mus, ",")
-                if usernames and usernames ~= "" then
-                    local uids, err = user_model:query_ids(usernames);
-                    if uids and not err then
-                        for i,u in pairs(uids) do -- 给每个人发通知
-                            notification_model:comment_mention(u.id, user_id, "", topic_id, new_comment_id)
-                        end
+                -- 直接传递数组给 query_ids，使用参数化查询防止 SQL 注入
+                local uids, err = user_model:query_ids(clean_mus)
+                if uids and not err then
+                    for i,u in pairs(uids) do -- 给每个人发通知
+                        notification_model:comment_mention(u.id, user_id, "", topic_id, new_comment_id)
                     end
                 end
             end

@@ -113,3 +113,21 @@
 	margin-top:10px;
 	margin-bottom:8px;
 }
+
+/* Utility Classes */
+.hidden {
+	display: none !important;
+}
+
+/* Rules List Style */
+.rules-list {
+	color: #ad2b2d;
+	list-style: none;
+	padding-left: 8px;
+	font-size: 12px;
+	line-height: 1.8;
+}
+
+.rules-list li {
+	margin-bottom: 4px;
+}

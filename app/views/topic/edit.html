@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>博客 编辑文章</title>
-  {(meta.html)}
-  <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload.css"/>
-    <link rel="stylesheet" media="screen" href="/static/css/jquery.fileupload-ui.css"/>
+    <title>博客 - 编辑文章</title>
+    {(meta.html)}
+    <link rel="stylesheet" href="/static/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
 </head>
 <body>
 {(header.html)}
@@ -13,20 +13,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">编辑文章</div>
         <div class="panel-body">
-            <div class="simple_form form"  method="post">
+            <div class="simple_form form" method="post">
                 <input class="form-control" type="hidden" name="topic_id" value={{topic.id}}>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-3">
-                            <div class="form-group">
-
-                                <select class="form-control" name="category" category_id={{topic.category_id}}>
-                                    <option value ="1">分享</option>
-                                    <option value ="2">问答</option>
-                                </select>
-                            </div>
+                            <select class="form-control" name="category" data-category-id={{topic.category_id}}>
+                                <option value="1">分享</option>
+                                <option value="2">问答</option>
+                            </select>
                         </div>
-
                         <div class="col-xs-9">
                             <input class="form-control" type="text" name="title" value="{{topic.title}}">
                         </div>
@@ -34,13 +30,13 @@
                 </div>
                 <div class="form-group">
                     <div class="editor-toolbar">
-                        <div class="opts pull-right"><!--上传文件-->
+                        <div class="opts pull-right">
                             <span class="fileinput-button">
-                                 <i class="fa fa-fa fa-image"></i>
-                                <input type="file" id="upload_image" multiple="">
+                                <i class="fa fa-image"></i>
+                                <input type="file" id="upload_image" multiple>
                             </span>
                         </div>
-                        <ul class="nav nav-pills" style="clear:none;">
+                        <ul class="nav nav-pills">
                             <li class="edit active">
                                 <a id="reply-edit-btn" href="javascript:void(0);">编辑</a>
                             </li>
@@ -50,7 +46,7 @@
                         </ul>
                     </div>
                     <textarea class="topic-editor form-control closewarning" rows="20" id="edit-area" name="content">{{topic.content}}</textarea>
-                    <div class="markdown form-control" id="preview-area" style="display:none;height:auto;border:1px solid #ddd;padding:20px 20px;"></div>
+                    <div class="markdown form-control hidden" id="preview-area"></div>
                 </div>
                 <div class="form-group">
                     <a id="commit" class="btn btn-primary col-xs-2">保存</a>
@@ -63,129 +59,116 @@
 <script src="/static/js/jquery.ui.widget.js"></script>
 <script src="/static/js/jquery.fileupload.js"></script>
 <script src="/static/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript">
-    function initEditComment(){
-        $("#reply-edit-btn").click(function(){
-            $(this).parent().addClass("active");
-            $("#reply-preview-btn").parent().removeClass("active");
-            $("#edit-area").show();
-            $("#preview-area").hide();
-        });
-
-        $("#reply-preview-btn").click(function(){
-            $(this).parent().addClass("active");
-            $("#reply-edit-btn").parent().removeClass("active");
-            var preview_content = APP.Common.md.render($("#edit-area").val());
-            $("#preview-area").html(preview_content);
-            emojify.run(document.getElementById('preview-area'));
-            $("#edit-area").hide();
-            $("#preview-area").show();
-        });
-    }
-
-    function initUploader() {
-        $("#upload_image").fileupload({  
-            url: '/upload/file',
-            sequentialUploads: true,
-            fail: function(e, data) {
-                APP.Common.showTipDialog("提示",'上传文件发生错误，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');
-            },
-        }).bind('fileuploadprogress', function (e, data) {  
-            var progress = parseInt(data.loaded / data.total * 100, 10);  
-            console.log(progress + '%');  
-        }).bind('fileuploaddone', function (e, data) { 
-            //console.dir(data.result)
-            var result = data.result || {};
-            if(result.success && result.filename){
-                var file_path = "/static/files/" + result.filename;
-                $("#edit-area").val($("#edit-area").val()+" !["+ result.originFilename +"](" + file_path +  ") ");
-            }else{
-                APP.Common.showTipDialog("提示",'上传文件失败'  + (result.msg?": "+result.msg:"")+ '，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');
-            }
-        });  
-    }
-
-    function initCategory() {
-        var Dom =$("select[name=category]"); 
-        var category_id = Dom.attr("category_id")
-        $.ajax({
-            url : '/category/all',
-            type : 'GET',
-            data : {
-            },
-            dataType : 'json',
-            success : function(result) {
-                if(result.success){
-                    //console.log(result.data)
-                    var dst = result.data
-                    var optstr = ""
-                    for(var i = 0; i<dst.length; i++){ 
-                        if (category_id == dst[i].id) {
-                            optstr = optstr + '<option selected value ="'+ dst[i].id +'">'+ dst[i].name +'</option>'
-                        } else {
-                            optstr = optstr + '<option value ="'+ dst[i].id +'">'+ dst[i].name +'</option>'
-                        }
-                        
-                    }
-                    Dom.html(optstr)
-                }
-            },
-            error : function() {
-                APP.Common.showTipDialog("提示", "新建文章请求发生异常");
-            }
-        });  
-    }
-
-    $(document).ready(function(){
-        //初始化编辑评论
-        initEditComment();
-        // 初始化上传
-        initUploader();
-        // 初始化 栏目
-        initCategory();
-
-        $("#commit").click(function(){
-            var topic_id = $("input[name=topic_id]").val();
-            var category_id =$("select[name=category]").val();
-            var title = $("input[name=title]").val();
-            var content= $("textarea[name=content]").val();
-
-            if(!title || !content){
-                APP.Common.showTipDialog("提示", "请输入标题和内容");
-                return;
-            }
- 
-            if(title.length>250||title.length<4 || content.length>5000000 || content.length<2){
-                APP.Common.showTipDialog("提示", "标题长度须大于4小于250，内容长度须大于2小于5000000");
-                return;
-            }
-
-            $.ajax({
-                url : '/topic/edit',
-                type : 'post',
-                data : {
-                    topic_id: topic_id,
-                    title: title,
-                    category_id: category_id,
-                    content: content
-                },
-                dataType : 'json',
-                success : function(result) {
-                    if(result.success){
-                        window.location.href="/topic/"+result.data.id+"/view";
-                    }else{
-                        APP.Comment.showTipDialog("提示", result.msg);
-                    }
-                },
-                error : function() {
-                    APP.Comment.showTipDialog("提示", "发送编辑文章请求出错!");
-                }
-            });
-        })
+<script>
+function initEditComment() {
+    $("#reply-edit-btn").click(function(){
+        $(this).parent().addClass("active");
+        $("#reply-preview-btn").parent().removeClass("active");
+        $("#edit-area").show();
+        $("#preview-area").hide();
     });
-</script>
- 
 
+    $("#reply-preview-btn").click(function(){
+        $(this).parent().addClass("active");
+        $("#reply-edit-btn").parent().removeClass("active");
+        var preview_content = APP.Common.md.render($("#edit-area").val());
+        $("#preview-area").html(preview_content);
+        emojify.run(document.getElementById('preview-area'));
+        $("#edit-area").hide();
+        $("#preview-area").show();
+    });
+}
+
+function initUploader() {
+    $("#upload_image").fileupload({
+        url: '/upload/file',
+        sequentialUploads: true,
+        fail: function(e, data) {
+            APP.Common.showTipDialog("提示", '上传文件发生错误，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');
+        }
+    }).bind('fileuploadprogress', function(e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        console.log(progress + '%');
+    }).bind('fileuploaddone', function(e, data) {
+        var result = data.result || {};
+        if (result.success && result.filename) {
+            var file_path = "/static/files/" + result.filename;
+            $("#edit-area").val($("#edit-area").val() + "![" + result.originFilename + "](" + file_path + ") ");
+        } else {
+            APP.Common.showTipDialog("提示", '上传文件失败' + (result.msg ? ": " + result.msg : "") + '，只允许jpe/jpeg/png/gif/bmp文件，大小不超过2M.');
+        }
+    });
+}
+
+function initCategory() {
+    var $dom = $("select[name=category]");
+    var category_id = $dom.data("category-id");
+    $.ajax({
+        url: '/category/all',
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            if (result.success) {
+                var dst = result.data;
+                var optstr = "";
+                for (var i = 0; i < dst.length; i++) {
+                    var selected = (category_id == dst[i].id) ? ' selected' : '';
+                    optstr += '<option value="' + dst[i].id + '"' + selected + '>' + dst[i].name + '</option>';
+                }
+                $dom.html(optstr);
+            }
+        },
+        error: function() {
+            APP.Common.showTipDialog("提示", "新建文章请求发生异常");
+        }
+    });
+}
+
+$(function(){
+    initEditComment();
+    initUploader();
+    initCategory();
+
+    $("#commit").click(function(){
+        var topic_id = $("input[name=topic_id]").val();
+        var category_id = $("select[name=category]").val();
+        var title = $("input[name=title]").val();
+        var content = $("textarea[name=content]").val();
+
+        if (!title || !content) {
+            APP.Common.showTipDialog("提示", "请输入标题和内容");
+            return;
+        }
+
+        if (title.length > 250 || title.length < 4 || content.length > 5000000 || content.length < 2) {
+            APP.Common.showTipDialog("提示", "标题长度须大于4小于250，内容长度须大于2小于5000000");
+            return;
+        }
+
+        $.ajax({
+            url: '/topic/edit',
+            type: 'post',
+            data: {
+                topic_id: topic_id,
+                title: title,
+                category_id: category_id,
+                content: content
+            },
+            dataType: 'json',
+            success: function(result) {
+                if (result.success) {
+                    window.location.href = "/topic/" + result.data.id + "/view";
+                } else {
+                    APP.Common.showTipDialog("提示", result.msg);
+                }
+            },
+            error: function() {
+                APP.Common.showTipDialog("提示", "发送编辑文章请求出错!");
+            }
+        });
+    });
+});
+</script>
 
 {(footer.html)}
 </body>

@@ -1,67 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>博客</title>
-  {(meta.html)}
+    <title>博客</title>
+    {(meta.html)}
 </head>
 <body data-controller-name="topics">
 {(header.html)}
-
 
 <div id="main" class="main-container container">
     <div class="row">
         <div class="col-md-9">
             <div class="topics panel panel-default">
                 <div class="panel-heading clearfix">
-
-                    <div class="filter pull-right" id="topic-type-tab"> 
+                    <div class="filter pull-right" id="topic-type-tab">
                         <span class="l">查看方式:</span>
-                        <a id="default-topics-btn" href="javascript:void(0);" class="active">默认</a> / 
-                        <a id="recent-reply-topics-btn" href="javascript:void(0);">最近回复</a> / 
-                        <a id="good-topics-btn" href="javascript:void(0);" class="popular"><i class="fa fa-diamond"></i> 优质帖子</a> / 
+                        <a id="default-topics-btn" href="javascript:void(0);" class="active">默认</a> /
+                        <a id="recent-reply-topics-btn" href="javascript:void(0);">最近回复</a> /
+                        <a id="good-topics-btn" href="javascript:void(0);" class="popular"><i class="fa fa-diamond"></i> 优质帖子</a> /
                         <a id="noreply-topics-btn" href="javascript:void(0);">无人问津</a>
                     </div>
-
-
                 </div>
-                <div class="panel-body" id="topics-body"></div><!-- topics -->  
-                <div class="panel-footer clearfix" id="pagebar" style="display:none;"> </div><!-- page bar -->  
+                <div class="panel-body" id="topics-body"></div>
+                <div class="panel-footer clearfix hidden" id="pagebar"></div>
             </div>
-            
-
-          
-            <!-- 
-           <div class="panel panel-default">
-                <div class="panel-heading">热门城市</div>
-                <div class="panel-body location-list" style="text-align:center;">
-                     <span class="name"><a href="/users/city/%E5%8C%97%E4%BA%AC">北京</a></span>
-                     <span class="name"><a href="/users/city/%E4%B8%8A%E6%B5%B7">上海</a></span>
-                     <span class="name"><a href="/users/city/%E6%9D%AD%E5%B7%9E">杭州</a></span>
-                     <span class="name"><a href="/users/city/%E6%B7%B1%E5%9C%B3">深圳</a></span>
-                     <span class="name"><a href="/users/city/%E5%B9%BF%E5%B7%9E">广州</a></span>
-                </div>
-            </div> 
-            -->
         </div>
+
         <div class="sidebar col-md-3">
             {% if diff_days < 3 then %}
             <div class="panel panel-default">
                 <div class="panel-heading">新手必读</div>
                 <div class="panel-body">
                     <p>为提高博客质量,保持良好氛围,本站有自己的明确规则：</p>
-                    <ul style="color:#ad2b2d;list-style:none;padding-left:8px;font-size:12px;"> 
-                        <li>1.不讨论任何有关政治的话题</li> 
+                    <ul class="rules-list">
+                        <li>1.不讨论任何有关政治的话题</li>
                         <li>2.这里感激和崇尚美的事物</li>
                         <li>3.这里尊重原创</li>
-                        <li>4.禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴”</li> 
-                        <li>5.当你在网上发帖时,请考虑到你所做的一切,会受到你所在地区法律的管辖</li> 
+                        <li>4.禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的"人肉贴"</li>
+                        <li>5.当你在网上发帖时,请考虑到你所做的一切,会受到你所在地区法律的管辖</li>
                     </ul>
                     <p>请在新人阶段多浏览,看看其他老用户是如何在博客里面分享与解决问题的。</p>
-                    <p>{% if locals and locals.create_time then%} <strong>您注册于{{locals.create_time}}</strong> {% end %} </p>
+                    {% if locals and locals.create_time then %}
+                    <p><strong>您注册于{{locals.create_time}}</strong></p>
+                    {% end %}
                 </div>
             </div>
             {% end %}
-
 
             {% if topics and #topics > 0 then %}
             <div class="panel panel-default">
@@ -69,56 +52,26 @@
                 <ul class="list-group">
                     {% for _, v in pairs(topics) do %}
                     <li class="list-group-item">
-                        <a class="topic-link" href="/topic/{{v.id}}/view#{{v.reply_num}}" title="{{v.title}}" alt="{{v.title}}" rel="nofollow">{{v.title}}</a>
+                        <a class="topic-link" href="/topic/{{v.id}}/view#{{v.reply_num}}" title="{{v.title}}">{{v.title}}</a>
                     </li>
-                    {% end %} 
+                    {% end %}
                 </ul>
             </div>
             {% end %}
-
 
             {% if categorys then %}
             <div class="panel panel-default">
                 <div class="panel-heading">节点导航</div>
-                <div class="panel-body location-list">  
+                <div class="panel-body location-list">
                     {% for _, v in pairs(categorys) do %}
-                    <span class="label" style="font-size:100%"> 
-                        <a href="/index?category={{v.id}}" rel="nofollow">
-                        {{v.name}} 
-                        </a>
+                    <span class="label">
+                        <a href="/index?category={{v.id}}" rel="nofollow">{{v.name}}</a>
                     </span>
-                    {% end %} 
+                    {% end %}
                 </div>
             </div>
             {% end %}
 
-            <!-- 
-            <div class="panel panel-default">
-                <div class="panel-heading">友情博客</div>
-                <ul class="list-group" style="text-align:center">
-                    <li class="list-group-item">
-                        <a href="#" target="_blank" rel="nofollow">
-                            <img src="/static/community/ruby-china.png" style="width: 120px; margin: 0px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" rel="nofollow" title="CNode 博客" target="_blank">
-                            <img src="/static/community/cnodejs.png" style="width:120px;margin: 4px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" rel="nofollow" title="Golang 中国" target="_blank">
-                            <img src="/static/community/golang.png" style="width:120px; margin:6px 0;">
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" target="_blank" rel="nofollow">
-                            <img src="/static/community/segmentfault.png" style="width:120px; margin: 6px 0;">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            -->
             <div class="panel panel-default">
                 <div class="panel-heading">统计信息</div>
                 <ul class="list-group">
@@ -133,62 +86,60 @@
 
 {(footer.html)}
 
-
 <script id="topic-item-tpl" type="text/template">
     {@each topics as t}
-        <div class="topic media">
-            <div class="avatar media-left">
-                <a href="/user/${t.user_name}/index">
-                    <img class="media-object avatar-48" src="/static/avatar/${t.avatar}">
-                </a>
+    <div class="topic media">
+        <div class="avatar media-left">
+            <a href="/user/${t.user_name}/index">
+                <img class="media-object avatar-48" src="/static/avatar/${t.avatar}">
+            </a>
+        </div>
+        <div class="infos media-body">
+            <div class="title media-heading">
+                <a class="topic-link" title="${t.title}" href="/topic/${t.id}/view#reply${t.reply_num}">${t.title}</a>
+                {@if t.weight > 0 }
+                <i class="fa fa-thumb-tack" title="置顶"></i>
+                {@/if}
+                {@if t.is_good==1 }
+                <i title="精华帖" class="fa fa-diamond"></i>
+                {@/if}
             </div>
-            <div class="infos media-body">
-                <div class="title media-heading"> 
-                    <a class="topic-link" title="${t.title}" href="/topic/${t.id}/view#reply${t.reply_num}">${t.title}</a>
-                    {@if t.weight > 0 }
-                        <i class="fa fa-thumb-tack" title="置顶"></i>
-                    {@/if}
-
-                    {@if t.is_good==1 }
-                        <i title="精华帖" class="fa fa-diamond"></i>
-                    {@/if}
-                </div>
-                <div class="info"> 
-                    {@if t.category_id!=0}
-                        <a class="node" href="/category/${t.category_id}">${t.category_name}</a> •
-                    {@/if}
-                    &nbsp;<a href="/user/${t.user_name}/index">${t.user_name}</a> 发布于 ${t.create_time}
-                    • ${t.view_num} 次浏览
-                    {@if t.last_reply_id!=0}
-                        <span class="hidden-mobile">
-                          • 最后由 <a href="/user/${t.last_reply_name}/index">${t.last_reply_name}</a> 于 ${t.last_reply_time} 回复
-                        </span>
-                    {@/if}
-                </div>
-            </div>
-            <div class="count media-right">
-                <a class="state-false" href="/topic/${t.id}/view#replies">${t.reply_num}</a>
+            <div class="info">
+                {@if t.category_id!=0}
+                <a class="node" href="/category/${t.category_id}">${t.category_name}</a> •
+                {@/if}
+                <a href="/user/${t.user_name}/index">${t.user_name}</a> 发布于 ${t.create_time}
+                • ${t.view_num} 次浏览
+                {@if t.last_reply_id!=0}
+                <span class="hidden-mobile">
+                    • 最后由 <a href="/user/${t.last_reply_name}/index">${t.last_reply_name}</a> 于 ${t.last_reply_time} 回复
+                </span>
+                {@/if}
             </div>
         </div>
+        <div class="count media-right">
+            <a class="state-false" href="/topic/${t.id}/view#replies">${t.reply_num}</a>
+        </div>
+    </div>
     {@/each}
 </script>
 
 <script src="/static/js/index.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var search = "{{search}}";
-        var current_category = "{{current_category}}";
-        var nav = "nav-index";
-        if(current_category == "0"){
-            nav = "nav-index";
-        }else if(current_category == "1"){
-            nav = "nav-share";
-        }else if(current_category == "2"){
-            nav = "nav-ask";
-        }
-        APP.Common.resetNav(nav);
-        APP.Index.init(current_category, search);
-    });
+<script>
+$(function(){
+    var search = "{{search}}";
+    var current_category = "{{current_category}}";
+    var nav = "nav-index";
+    if (current_category == "0") {
+        nav = "nav-index";
+    } else if (current_category == "1") {
+        nav = "nav-share";
+    } else if (current_category == "2") {
+        nav = "nav-ask";
+    }
+    APP.Common.resetNav(nav);
+    APP.Index.init(current_category, search);
+});
 </script>
 </body>
 </html>

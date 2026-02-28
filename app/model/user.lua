@@ -22,8 +22,21 @@ function user_model:querys()
 end
 
 function user_model:query_ids(usernames)
-   local res, err =  db:query("select id from user where username in(" .. usernames .. ")")
-   return res, err
+   -- 使用参数化查询防止 SQL 注入
+   if not usernames or type(usernames) ~= "table" or #usernames == 0 then
+      return {}, nil
+   end
+
+   -- 构建占位符和参数
+   local placeholders = {}
+   local params = {}
+   for i, username in ipairs(usernames) do
+      table.insert(placeholders, "?")
+      table.insert(params, username)
+   end
+
+   local sql = "select id from user where username in(" .. table.concat(placeholders, ",") .. ")"
+   return db:query(sql, params)
 end
 
 function user_model:query(username, password)
@@ -89,10 +102,10 @@ end
 function user_model:get_total_count()
 	-- 查询缓存或数据库中是否包含指定信息
 	local cache_key = string.format("dict:user_get_all_count")
-	local res, err = dict:get_or_load(cache_key, function() 
+	local res, err = dict:get_or_load(cache_key, function()
 		return db:query("select count(id) as c from user where is_delete=0")
-	end, 1800)
- 
+	end, 120) -- 缓存120秒，用户总数统计
+
 	if err or not res or #res~=1 or not res[1].c then
    		return 0
    	else

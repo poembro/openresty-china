@@ -132,10 +132,10 @@ end
 function comment_model:get_total_count()
 	-- 查询缓存或数据库中是否包含指定信息
 	local cache_key = string.format("dict:comment_total_count")
-	local res, err = dict:get_or_load(cache_key, function() 
+	local res, err = dict:get_or_load(cache_key, function()
 		return db:query("select count(id) as c from comment where  is_delete=0")
-	end, 1800)
- 
+	end, 120) -- 缓存120秒，评论总数统计
+
 	if err or not res or #res~=1 or not res[1].c then
    		return 0
    	else
@@ -183,7 +183,7 @@ function comment_model:get_all_of_topic(topic_id, page_no, page_size)
 end
 
 function comment_model:reset_topic_comment_num(topic_id)
-	db:query("update topic set reply_num=(select count(id) from comment where topic_id=? and is_delete=1) where id=?", 
+	db:query("update topic set reply_num=(select count(id) from comment where topic_id=? and is_delete=0) where id=?",
 		{tonumber(topic_id), tonumber(topic_id)})
 end
 

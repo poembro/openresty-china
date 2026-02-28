@@ -102,46 +102,54 @@ auth_router:post("/login", function(req, res, next)
  
     local isExist = false
     local userid = 0
-    password = utils.encode(password .. "#" .. pwd_secret)
-    ngx.log(ngx.ERR, " -------- 1 :   ", password) 
+
+    local ok, encode_err = pcall(function()
+        password = utils.encode(password .. "#" .. pwd_secret)
+    end)
+
+    if not ok then
+        ngx.log(ngx.ERR, " -------- encode error:   ", encode_err)
+        return res:json({
+            success = false,
+            msg = "密码编码失败: " .. tostring(encode_err)
+        })
+    end
+
+    ngx.log(ngx.ERR, " -------- 1 :   ", password)
     local result, err = user_model:query(username, password)
 
     local user = {}
     if result and not err then
         if result and #result == 1 then
             isExist = true
-            user = result[1] 
+            user = result[1]
             userid = user.id
+
+            local signVal = jwt:encode(userid, username, user.is_admin, user.create_time)
+            local ok, err = req.cookie.set({
+                key = "_TOKEN",
+                value = signVal,
+                path = "/",
+                --domain = "new.cn",
+                secure = false,
+                httponly = true,
+                 --expires =  ngx.cookie_time(os.time() + 3600),
+                max_age = 86400, -- 用秒来设置cookie的生存期。
+                samesite = "Strict",
+                extension = "a4334aeba444e22222222ce"
+            })
+
+            return res:json({
+                success = true,
+                msg = "登录成功."
+            })
         end
-    else
-        isExist = false
     end
 
-    if isExist == true then 
-        local signVal = jwt:encode(userid, username,user.is_admin, user.create_time)
-        local ok, err = req.cookie.set({
-            key = "_TOKEN",
-            value = signVal,
-            path = "/",
-            --domain = "new.cn",
-            secure = false, 
-            httponly = true,
-             --expires =  ngx.cookie_time(os.time() + 3600),
-            max_age = 86400, -- 用秒来设置cookie的生存期。
-            samesite = "Strict", 
-            extension = "a4334aeba444e22222222ce"
-        })
-        
-        return res:json({
-            success = true,
-            msg = "登录成功."
-        })
-    else
-        return res:json({
-            success = false,
-            msg = "用户名或密码错误，请检查!"
-        })
-    end
+    return res:json({
+        success = false,
+        msg = "用户名或密码错误，请检查!"
+    })
 end)
 
 

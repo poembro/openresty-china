@@ -37,24 +37,24 @@
                             {% if not is_self then %}
                             <div class="item" id="relation-op-area">
                                 {% if relation == 0 then %}
-                                <a class="btn btn-primary btn-tiny follow-btn" data-toid="{{user.id}}" data-op="follow" data-relation="{{relation}}" href="javascript:void(0)">
+                                <a class="btn btn-default btn-tiny follow-btn" data-toid="{{user.id}}" data-op="follow" data-relation="{{relation}}" href="javascript:void(0)">
                                     <i class="fa fa-user"></i>
                                     <span>关注</span>
                                 </a>
                                 {% elseif relation == 1 then %}
-                                <a class="btn btn-primary btn-tiny follow-btn" data-toid="{{user.id}}" data-op="unfollow" data-relation="{{relation}}" href="javascript:void(0)">
+                                <a class="btn btn-default btn-tiny follow-btn" data-toid="{{user.id}}" data-op="unfollow" data-relation="{{relation}}" href="javascript:void(0)">
                                     <i class="fa fa-user"></i>
                                     <span>取消关注</span>
                                 </a>
                                 <span>已关注</span>
                                 {% elseif relation == 2 then %}
-                                <a class="btn btn-primary btn-tiny follow-btn" data-toid="{{user.id}}" data-op="follow" data-relation="{{relation}}" href="javascript:void(0)">
+                                <a class="btn btn-default btn-tiny follow-btn" data-toid="{{user.id}}" data-op="follow" data-relation="{{relation}}" href="javascript:void(0)">
                                     <i class="fa fa-user"></i>
                                     <span>关注</span>
                                 </a>
                                 <span>ta关注了我</span>
                                 {% elseif relation == 3 then %}
-                                <a class="btn btn-primary btn-tiny follow-btn" data-toid="{{user.id}}" data-op="unfollow" data-relation="{{relation}}" href="javascript:void(0)">
+                                <a class="btn btn-default btn-tiny follow-btn" data-toid="{{user.id}}" data-op="unfollow" data-relation="{{relation}}" href="javascript:void(0)">
                                     <i class="fa fa-user"></i>
                                     <span>取消关注</span>
                                 </a>
@@ -355,7 +355,7 @@
 </script>
 
 <script id="relation-op-area-tpl" type="text/template">
-    <a class="btn btn-primary btn-tiny follow-btn" data-toid="${user_id}" data-op="${op}" data-relation="${relation}" href="javascript:void(0)">
+    <a class="btn ${btn_class} btn-tiny follow-btn" data-toid="${user_id}" data-op="${op}" data-relation="${relation}" href="javascript:void(0)">
         <i class="fa fa-user"></i>
         <span>${text}</span>
     </a>

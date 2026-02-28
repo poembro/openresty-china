@@ -281,6 +281,10 @@
                 'follow': '取消关注',
                 'unfollow': '关注'
             };
+            var btnClassMap = {
+                'follow': 'btn-default',
+                'unfollow': 'btn-primary'
+            };
 
             var tpl = $('#relation-op-area-tpl').html();
             var html = juicer(tpl, {
@@ -288,7 +292,8 @@
                 op: op,
                 relation: relation,
                 text: textMap[op],
-                relation_text: relationTextMap[relation]
+                relation_text: relationTextMap[relation],
+                btn_class: btnClassMap[op]
             });
             $('#relation-op-area').html(html);
             $('#fans-count').text(result.data.fans_count);

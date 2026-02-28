@@ -40,6 +40,7 @@ function DB:exec(sql)
     ngx.log(ngx.ERR, "connected to mysql, reused_times:", db:get_reused_times(), " sql:", sql)
 
     db:query("SET NAMES utf8mb4")
+    db:query("SET time_zone = '+8:00'") -- 设置时区为东八区（中国标准时间）
     local res, err, errno, sqlstate = db:query(sql)
     if not res then
         ngx.log(ngx.ERR, "bad result: ", err, ": ", errno, ": ", sqlstate, ".")

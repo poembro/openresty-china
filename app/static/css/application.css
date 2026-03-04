@@ -347,6 +347,7 @@ a.topic-link:hover {
     font-weight: normal;
     border-radius: 2px;
     padding: 2px 4px;
+    font-size: 14px;
 }
 .label-default {
     background: #EBEDEE;
